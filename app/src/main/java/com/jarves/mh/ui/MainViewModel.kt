@@ -139,7 +139,7 @@ private data class ImportedZipProject(
 data class AppUiState(
     val startupStage: StartupStage = StartupStage.CHECKING,
     val startupProgress: Float = 0f,
-    val startupMessage: String = "Checking this device…",
+    val startupMessage: String = "Vérification de cet appareil…",
     val startupBytes: Pair<Long, Long>? = null,
     val startupLogs: List<String> = emptyList(),
     val startupIndeterminate: Boolean = false,
@@ -180,7 +180,7 @@ data class AppUiState(
     val openedFileContent: String? = null,
     val fileContentLoading: Boolean = false,
     val messages: List<ChatMessage> = listOf(
-        ChatMessage(fromUser = false, text = "Hi! Tell me what you want to build or change."),
+        ChatMessage(fromUser = false, text = "Bonjour ! Dites-moi ce que vous souhaitez créer ou modifier."),
     ),
     val pendingAttachments: List<ChatAttachment> = emptyList(),
     val pendingApproval: ToolRequest? = null,
@@ -1256,7 +1256,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val message = if (isOffline) {
             "Connect to Wi-Fi or mobile data, then try again. Internet is required to finish the first-time setup."
         } else {
-            error.message?.take(300) ?: "Something went wrong while preparing Mobile Harness. Please try again."
+            error.message?.take(300) ?: "Une erreur s’est produite lors de la préparation de Mobile Lewys. Veuillez réessayer."
         }
         _state.update {
             it.copy(

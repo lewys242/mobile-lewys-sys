@@ -29,11 +29,11 @@ Copy the HTTPS URL it prints. In another terminal, build and serve the
 newer APK with that URL baked into its manifest:
 
 ```bash
-./scripts/serve-update-server.sh 8080 https://example.trycloudflare.com 4 1.0.3-test
+./scripts/serve-update-server.sh 8080 https://example.trycloudflare.com 6 1.0.5-test
 ```
 
-The final two arguments are optional and default to `4` and
-`1.0.3-test`. The script writes generated files to the ignored
+The final two arguments are optional and default to `6` and
+`1.0.5-test`. The script writes generated files to the ignored
 `dist/update-test/` directory.
 
 ## 2. Point the debug app at the manifest
@@ -44,7 +44,7 @@ hidden in release builds).
 Paste:
 
 ```
-https://<your-tunnel-url>/mobile-harness-update.json
+https://<your-tunnel-url>/mobile-lewys-update.json
 ```
 
 Tap **Use & check**. The updater immediately re-fetches the manifest. The

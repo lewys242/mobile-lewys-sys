@@ -297,17 +297,17 @@ fun AgentScreen(
 
     val (dot, label, pillBg) = if (isAntigravity) {
         when {
-            antigravityTesting -> Triple(PocketOrange, "Testing…", PocketOrange.copy(alpha = 0.13f))
+            antigravityTesting -> Triple(PocketOrange, "Test…", PocketOrange.copy(alpha = 0.13f))
             state.antigravityAuth.status != AntigravityAuthStatus.SIGNED_IN || antigravityHelloFailed ->
                 Triple(MaterialTheme.colorScheme.error, "Attention", MaterialTheme.colorScheme.error.copy(alpha = 0.12f))
-            else -> Triple(Color(0xFF58C9A3), "Online", Color(0xFF58C9A3).copy(alpha = 0.13f))
+            else -> Triple(Color(0xFF58C9A3), "En ligne", Color(0xFF58C9A3).copy(alpha = 0.13f))
         }
     } else {
         when (state.apiPingStatus) {
-            ApiPingStatus.OK -> Triple(Color(0xFF58C9A3), "Online", Color(0xFF58C9A3).copy(alpha = 0.13f))
+            ApiPingStatus.OK -> Triple(Color(0xFF58C9A3), "En ligne", Color(0xFF58C9A3).copy(alpha = 0.13f))
             ApiPingStatus.FAILED -> Triple(MaterialTheme.colorScheme.error, "Attention", MaterialTheme.colorScheme.error.copy(alpha = 0.12f))
-            ApiPingStatus.PINGING -> Triple(PocketOrange, "Testing…", PocketOrange.copy(alpha = 0.13f))
-            ApiPingStatus.IDLE -> Triple(MaterialTheme.colorScheme.onSurfaceVariant, "Not tested", MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f))
+            ApiPingStatus.PINGING -> Triple(PocketOrange, "Test…", PocketOrange.copy(alpha = 0.13f))
+            ApiPingStatus.IDLE -> Triple(MaterialTheme.colorScheme.onSurfaceVariant, "Non testé", MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f))
         }
     }
 
@@ -326,9 +326,9 @@ fun AgentScreen(
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) {
-                        Text("Select Model", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+                        Text("Sélectionner un modèle", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
                         Text(
-                            "${filteredAntigravityModels.size} available for Antigravity",
+                            "${filteredAntigravityModels.size} modèles disponibles pour Antigravity",
                             fontSize = 12.sp,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
@@ -343,7 +343,7 @@ fun AgentScreen(
                     value = antigravitySearch,
                     onValueChange = { antigravitySearch = it },
                     leadingIcon = { Icon(Icons.Default.Search, null) },
-                    placeholder = { Text("Search model or series") },
+                    placeholder = { Text("Rechercher un modèle ou une série") },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(14.dp),
@@ -1286,7 +1286,7 @@ private fun AgentAntigravityCard(
                             }
                             Spacer(Modifier.width(10.dp))
                             Column(Modifier.weight(1f)) {
-                                val currentModel = state.antigravityModel.ifBlank { "Select model" }
+                                val currentModel = state.antigravityModel.ifBlank { "Sélectionner un modèle" }
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Text(
                                         formatAntigravityModelName(currentModel),

@@ -158,8 +158,8 @@ private fun LegacySettingsScreen(
             // -------------------------------------------------------------
             item {
                 SectionHeader(
-                    title = "Appearance",
-                    subtitle = "Customize app theme and styling",
+                    title = "Apparence",
+                    subtitle = "Personnaliser le thème et le style de l’application",
                     icon = Icons.Default.Tune,
                 )
                 Spacer(Modifier.height(10.dp))
@@ -168,21 +168,21 @@ private fun LegacySettingsScreen(
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
                 ) {
                     ThemeOptionCard(
-                        title = "Dark",
+                        title = "Sombre",
                         icon = Icons.Default.DarkMode,
                         selected = state.themeMode == AppThemeMode.DARK,
                         onClick = { onSetThemeMode(AppThemeMode.DARK) },
                         modifier = Modifier.weight(1f),
                     )
                     ThemeOptionCard(
-                        title = "Light",
+                        title = "Clair",
                         icon = Icons.Default.LightMode,
                         selected = state.themeMode == AppThemeMode.LIGHT,
                         onClick = { onSetThemeMode(AppThemeMode.LIGHT) },
                         modifier = Modifier.weight(1f),
                     )
                     ThemeOptionCard(
-                        title = "System",
+                        title = "Système",
                         icon = Icons.Default.PhoneAndroid,
                         selected = state.themeMode == AppThemeMode.SYSTEM,
                         onClick = { onSetThemeMode(AppThemeMode.SYSTEM) },
@@ -196,8 +196,8 @@ private fun LegacySettingsScreen(
             // -------------------------------------------------------------
             item {
                 SectionHeader(
-                    title = "Developer tools",
-                    subtitle = "Language toolchains inside the Ubuntu runtime",
+                    title = "Outils de développement",
+                    subtitle = "Chaînes de langue dans l’environnement Ubuntu",
                     icon = Icons.Default.Code,
                 )
                 Spacer(Modifier.height(10.dp))
@@ -208,7 +208,7 @@ private fun LegacySettingsScreen(
                 ) {
                     Column(Modifier.fillMaxWidth().padding(14.dp)) {
                         Text(
-                            "Node.js, npm, and Git are always installed — Claude Code runs on them.",
+                            "Node.js, npm et Git sont toujours installés — Claude Code s’exécute dessus.",
                             fontSize = 12.sp,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
@@ -746,7 +746,7 @@ private fun LegacySettingsScreen(
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            Text("Mobile Harness", fontWeight = FontWeight.Bold, fontSize = 15.sp)
+                            Text("mobile-lewys-sys", fontWeight = FontWeight.Bold, fontSize = 15.sp)
                             Text("v1.0.0", color = PocketOrange, fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
                         }
                         Text(

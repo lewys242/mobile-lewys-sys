@@ -99,8 +99,8 @@ fun TerminalScreen(
     onClear: () -> Unit,
     onToggleTheme: () -> Unit,
     themeMode: AppThemeMode,
-    title: String = "Linux Terminal",
-    subtitle: String = "Ubuntu 24.04 · PRoot Sandbox",
+    title: String = "Terminal Linux",
+    subtitle: String = "Ubuntu 24.04 · Bac à sable PRoot",
     liveOutput: String = "",
     currentCommand: String? = null,
     commandDraft: String? = null,
@@ -326,7 +326,7 @@ fun TerminalScreen(
                         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                             if (lines.isEmpty()) {
                                 Text(
-                                    "Mobile Harness Terminal ready.\nType a bash command below or tap a quick command chip above.",
+                                     "Terminal Mobile Lewys prêt.\nSaisissez une commande bash ci-dessous ou touchez une commande rapide.",
                                     fontFamily = FontFamily.Monospace,
                                     fontSize = 12.sp,
                                     color = emptyStateColor,

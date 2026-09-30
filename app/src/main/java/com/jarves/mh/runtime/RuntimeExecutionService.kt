@@ -22,7 +22,7 @@ internal object RuntimeTaskController {
 class RuntimeExecutionService : Service() {
     private var wakeLock: PowerManager.WakeLock? = null
     private var projectName: String = "your project"
-    private var notificationTitle: String = "Mobile Harness is working"
+    private var notificationTitle: String = "Mobile Lewys travaille"
     private var canStop: Boolean = true
     private var taskRunning: Boolean = false
 
@@ -55,12 +55,12 @@ class RuntimeExecutionService : Service() {
             }
             ACTION_COMPLETE -> finishTask(
                 title = "Task completed",
-                detail = intent?.getStringExtra(EXTRA_DETAIL) ?: "Mobile Harness finished working in $projectName.",
+                detail = intent?.getStringExtra(EXTRA_DETAIL) ?: "Mobile Lewys a terminé son travail dans $projectName.",
                 failed = false,
             )
             ACTION_FAILED -> finishTask(
                 title = "Task needs attention",
-                detail = intent?.getStringExtra(EXTRA_DETAIL) ?: "Mobile Harness could not finish the task.",
+                detail = intent?.getStringExtra(EXTRA_DETAIL) ?: "Mobile Lewys n’a pas pu terminer la tâche.",
                 failed = true,
             )
             ACTION_CANCELLED -> {
@@ -171,7 +171,7 @@ class RuntimeExecutionService : Service() {
             val manager = context.getSystemService(NotificationManager::class.java)
             manager.createNotificationChannel(
                 NotificationChannel(RUNNING_CHANNEL_ID, "Running coding tasks", NotificationManager.IMPORTANCE_LOW).apply {
-                    description = "Shows progress while Mobile Harness is working in the background"
+                    description = "Affiche la progression pendant que Mobile Lewys travaille en arrière-plan"
                 },
             )
             manager.createNotificationChannel(

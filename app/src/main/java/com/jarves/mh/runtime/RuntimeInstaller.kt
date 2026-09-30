@@ -106,7 +106,7 @@ class RuntimeInstaller(private val context: Context) {
 
     /** Returns the already verified runtime without performing network or update checks. */
     fun installedRuntime(): InstalledRuntime {
-        check(isInstalled()) { "Core runtime setup is incomplete. Reopen Mobile Harness to repair it." }
+        check(isInstalled()) { "La configuration principale est incomplète. Rouvrez Mobile Lewys pour la réparer." }
         return InstalledRuntime(
             proot = File(context.applicationInfo.nativeLibraryDir, "libproot.so"),
             rootfs = rootfs,
@@ -146,7 +146,7 @@ class RuntimeInstaller(private val context: Context) {
                 android.os.Build.SUPPORTED_ABIS,
                 System.getProperty("os.arch"),
             ),
-        ) { "Unsupported architecture: Mobile Harness requires an ARM64 device or ARM64 emulator" }
+        ) { "Architecture incompatible : Mobile Lewys nécessite un appareil ou un émulateur ARM64" }
         val proot = File(context.applicationInfo.nativeLibraryDir, "libproot.so")
         require(proot.canExecute()) { "The embedded PRoot launcher is unavailable" }
 

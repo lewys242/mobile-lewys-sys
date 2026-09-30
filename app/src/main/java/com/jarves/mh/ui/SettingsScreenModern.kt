@@ -147,9 +147,9 @@ fun SettingsScreen(
     stackPendingRemoval?.let { stack ->
         AlertDialog(
             onDismissRequest = { stackPendingRemoval = null },
-            title = { Text("Remove ${stack.label}?") },
+            title = { Text("Supprimer ${stack.label} ?") },
             text = {
-                Text("This removes the toolchain and its runtime caches to free storage. Your projects and source files will not be deleted.")
+                Text("Cela supprime l’outil et ses caches pour libérer de l’espace. Vos projets et fichiers source ne seront pas supprimés.")
             },
             confirmButton = {
                 TextButton(
@@ -157,9 +157,9 @@ fun SettingsScreen(
                         stackPendingRemoval = null
                         onRemoveDevStack(stack)
                     },
-                ) { Text("Remove", color = MaterialTheme.colorScheme.error) }
+                ) { Text("Supprimer", color = MaterialTheme.colorScheme.error) }
             },
-            dismissButton = { TextButton(onClick = { stackPendingRemoval = null }) { Text("Cancel") } },
+            dismissButton = { TextButton(onClick = { stackPendingRemoval = null }) { Text("Annuler") } },
         )
     }
 
@@ -196,8 +196,8 @@ fun SettingsScreen(
                         }
                         Spacer(Modifier.width(10.dp))
                         Column {
-                            Text("Settings", fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleLarge)
-                            Text("Preferences & Configuration", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Text("Réglages", fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleLarge)
+                            Text("Préférences et configuration", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
                 },
@@ -213,16 +213,16 @@ fun SettingsScreen(
 
             item {
                 SettingsAccordion(
-                    title = "Appearance",
-                    subtitle = when (state.themeMode) { AppThemeMode.DARK -> "Dark theme"; AppThemeMode.LIGHT -> "Light theme"; AppThemeMode.SYSTEM -> "Follow system" },
+                    title = "Apparence",
+                    subtitle = when (state.themeMode) { AppThemeMode.DARK -> "Thème sombre"; AppThemeMode.LIGHT -> "Thème clair"; AppThemeMode.SYSTEM -> "Suivre le système" },
                     icon = Icons.Default.Tune,
                     expanded = expanded == SettingsSection.APPEARANCE,
                     onClick = { toggle(SettingsSection.APPEARANCE) },
                 ) {
                     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        ModernThemeChoice("Dark", Icons.Default.DarkMode, state.themeMode == AppThemeMode.DARK, { onSetThemeMode(AppThemeMode.DARK) }, Modifier.weight(1f))
-                        ModernThemeChoice("Light", Icons.Default.LightMode, state.themeMode == AppThemeMode.LIGHT, { onSetThemeMode(AppThemeMode.LIGHT) }, Modifier.weight(1f))
-                        ModernThemeChoice("System", Icons.Default.PhoneAndroid, state.themeMode == AppThemeMode.SYSTEM, { onSetThemeMode(AppThemeMode.SYSTEM) }, Modifier.weight(1f))
+                        ModernThemeChoice("Sombre", Icons.Default.DarkMode, state.themeMode == AppThemeMode.DARK, { onSetThemeMode(AppThemeMode.DARK) }, Modifier.weight(1f))
+                        ModernThemeChoice("Clair", Icons.Default.LightMode, state.themeMode == AppThemeMode.LIGHT, { onSetThemeMode(AppThemeMode.LIGHT) }, Modifier.weight(1f))
+                        ModernThemeChoice("Système", Icons.Default.PhoneAndroid, state.themeMode == AppThemeMode.SYSTEM, { onSetThemeMode(AppThemeMode.SYSTEM) }, Modifier.weight(1f))
                     }
                 }
             }
@@ -230,13 +230,13 @@ fun SettingsScreen(
             item {
                 val installedCount = state.installedDevStacks.size
                 SettingsAccordion(
-                    title = "Developer tools",
-                    subtitle = "Core tools + $installedCount optional toolchain${if (installedCount == 1) "" else "s"}",
+                    title = "Outils de développement",
+                    subtitle = "Outils de base + $installedCount chaîne d’outils optionnelle${if (installedCount == 1) "" else "s"}",
                     icon = Icons.Default.Code,
                     expanded = expanded == SettingsSection.TOOLS,
                     onClick = { toggle(SettingsSection.TOOLS) },
                 ) {
-                    Text("Node.js, npm, Git, and Claude Code are included.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text("Node.js, npm, Git et Claude Code sont inclus.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     Spacer(Modifier.height(8.dp))
                     DevStack.entries.forEachIndexed { index, stack ->
                         val installed = stack in state.installedDevStacks
@@ -248,14 +248,14 @@ fun SettingsScreen(
                                 Text(stack.installsSummary, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis)
                             }
                             when {
-                                removing -> Text("Removing…", color = MaterialTheme.colorScheme.error, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                                removing -> Text("Suppression…", color = MaterialTheme.colorScheme.error, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                                 installing -> Text("${(state.devStackProgress * 100).toInt()}%", color = PocketOrange, fontWeight = FontWeight.Bold)
-                                installed && stack == DevStack.WEB -> Text("Included", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                installed && stack == DevStack.WEB -> Text("Inclus", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                 installed -> TextButton(
                                     onClick = { stackPendingRemoval = stack },
                                     enabled = state.devStackInstalling == null,
-                                ) { Text("Remove", color = MaterialTheme.colorScheme.error) }
-                                else -> OutlinedButton(onClick = { onInstallDevStack(stack) }, enabled = state.devStackInstalling == null) { Text("Add") }
+                                ) { Text("Supprimer", color = MaterialTheme.colorScheme.error) }
+                                else -> OutlinedButton(onClick = { onInstallDevStack(stack) }, enabled = state.devStackInstalling == null) { Text("Ajouter") }
                             }
                         }
                         if (installing) {
@@ -395,7 +395,7 @@ fun SettingsScreen(
                         Icon(Icons.Default.Settings, null, Modifier.size(20.dp), tint = PocketOrange)
                         Spacer(Modifier.width(12.dp))
                         Column(Modifier.weight(1f)) {
-                            Text("Mobile Harness", fontWeight = FontWeight.SemiBold)
+                            Text("mobile-lewys-sys", fontWeight = FontWeight.SemiBold)
                             Text("Local AI coding workspace", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                         Text("v${BuildConfig.VERSION_NAME}", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -879,7 +879,7 @@ private fun DebugUpdateChannelSection(
         onClick = { expanded = !expanded },
     ) {
         Text(
-            "Debug builds only. Paste the temporary manifest URL from Cloudflare Tunnel, ngrok, or any HTTPS server hosting mobile-harness-update.json and a newer APK.",
+            "Debug builds only. Paste the temporary manifest URL from Cloudflare Tunnel, ngrok, or any HTTPS server hosting mobile-lewys-update.json and a newer APK.",
             fontSize = 12.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
@@ -888,7 +888,7 @@ private fun DebugUpdateChannelSection(
             value = url,
             onValueChange = { url = it },
             label = { Text("Manifest URL") },
-            placeholder = { Text("https://your-tunnel.example/mobile-harness-update.json") },
+            placeholder = { Text("https://your-tunnel.example/mobile-lewys-update.json") },
             singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri),
             modifier = Modifier.fillMaxWidth(),

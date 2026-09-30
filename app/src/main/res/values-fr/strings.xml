@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">Mobile Lewys</string>
-    <string name="settings">Paramètres</string>
+    <string name="settings">Réglages</string>
     <string name="appearance">Apparence</string>
     <string name="system">Système</string>
     <string name="dark">Sombre</string>
     <string name="light">Clair</string>
     <string name="developer_tools">Outils de développement</string>
     <string name="linux_terminal">Terminal Linux</string>
-    <string name="ubuntu_prout_sandbox">Ubuntu 24.04 · PRoot Sandbox</string>
+    <string name="ubuntu_prout_sandbox">Ubuntu 24.04 · Bac à sable PRoot</string>
     <string name="select_model">Sélectionner un modèle</string>
     <string name="search_model_or_series">Rechercher un modèle ou une série</string>
 </resources>

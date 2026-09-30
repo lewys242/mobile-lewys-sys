@@ -227,16 +227,16 @@ import androidx.compose.material.icons.filled.Terminal
 import androidx.compose.material3.ExtendedFloatingActionButton
 
 private enum class RootScreen(val label: String, val icon: ImageVector) {
-    PROJECTS("Projects", Icons.Default.Folder),
+    PROJECTS("Projets", Icons.Default.Folder),
     AGENT("Agent", Icons.Default.SmartToy),
-    SETTINGS("Settings", Icons.Default.Settings),
+    SETTINGS("Réglages", Icons.Default.Settings),
 }
 private enum class WorkspaceTab(val label: String, val icon: ImageVector) {
-    CHAT("Chat", Icons.Default.AutoAwesome),
-    FILES("Files", Icons.Default.Folder),
+    CHAT("Discussion", Icons.Default.AutoAwesome),
+    FILES("Fichiers", Icons.Default.Folder),
     TERMINAL("Terminal", Icons.Default.Terminal),
-    CHANGES("Changes", Icons.Default.Code),
-    PREVIEW("Preview", Icons.Default.Preview),
+    CHANGES("Modifications", Icons.Default.Code),
+    PREVIEW("Aperçu", Icons.Default.Preview),
 }
 
 @Composable
@@ -386,7 +386,7 @@ private fun AntigravityOnboardingScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Set up Antigravity") },
+                title = { Text("Configurer Antigravity") },
                 actions = { IconButton(onClick = onToggleTheme) { Icon(Icons.Default.DarkMode, "Toggle theme") } },
             )
         },
@@ -395,7 +395,7 @@ private fun AntigravityOnboardingScreen(
             Modifier.fillMaxSize().padding(padding).padding(24.dp).verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(14.dp),
         ) {
-            Text("Connect your Google account", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+            Text("Connecter votre compte Google", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
             Text(
                 "PocketDev runs Google's official agy CLI inside its private Linux environment. Google handles authentication and agy owns the saved session.",
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -404,19 +404,19 @@ private fun AntigravityOnboardingScreen(
                 AntigravityAuthStatus.SIGNED_OUT, AntigravityAuthStatus.ERROR -> {
                     state.antigravityAuth.message?.let { Text(it, color = MaterialTheme.colorScheme.error) }
                     Button(onClick = onStartLogin, modifier = Modifier.fillMaxWidth().height(52.dp)) {
-                        Text("Sign in with Google")
+                        Text("Se connecter avec Google")
                     }
                 }
                 AntigravityAuthStatus.STARTING -> {
                     LinearProgressIndicator(Modifier.fillMaxWidth())
-                    Text("Starting the official Antigravity login…")
+                    Text("Démarrage de la connexion officielle à Antigravity…")
                 }
                 AntigravityAuthStatus.COMPLETING -> {
                     LinearProgressIndicator(Modifier.fillMaxWidth())
-                    Text("Completing Google sign-in…")
+                    Text("Finalisation de la connexion Google…")
                 }
                 AntigravityAuthStatus.AWAITING_CODE -> {
-                    Text("Google sign-in opened in your browser. Copy the one-time code shown after approval.")
+                    Text("La connexion Google est ouverte dans votre navigateur. Copiez le code à usage unique affiché après l’autorisation.")
                     state.antigravityAuth.authorizationUrl?.let { url ->
                         OutlinedButton(
                             onClick = { clipboard.setText(AnnotatedString(url)) },
@@ -424,13 +424,13 @@ private fun AntigravityOnboardingScreen(
                         ) {
                             Icon(Icons.Default.ContentCopy, null, Modifier.size(18.dp))
                             Spacer(Modifier.width(8.dp))
-                            Text("Copy sign-in URL")
+                            Text("Copier l’URL de connexion")
                         }
                     }
                     OutlinedTextField(
                         value = code,
                         onValueChange = { code = it },
-                        label = { Text("Authorization code") },
+                        label = { Text("Code d’autorisation") },
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth(),
                     )
@@ -438,7 +438,7 @@ private fun AntigravityOnboardingScreen(
                         onClick = { onSubmitCode(code); code = "" },
                         enabled = code.isNotBlank(),
                         modifier = Modifier.fillMaxWidth(),
-                    ) { Text("Complete sign-in") }
+                    ) { Text("Terminer la connexion") }
                 }
                 AntigravityAuthStatus.SIGNED_IN -> {
                     Surface(color = PocketGreen.copy(alpha = 0.12f), shape = RoundedCornerShape(14.dp)) {
@@ -450,7 +450,7 @@ private fun AntigravityOnboardingScreen(
                         )
                     }
                     Button(onClick = onContinue, modifier = Modifier.fillMaxWidth().height(52.dp)) {
-                        Text("Continue")
+                        Text("Continuer")
                     }
                 }
             }
@@ -458,7 +458,7 @@ private fun AntigravityOnboardingScreen(
                 onClick = { showAgentPicker = true },
                 modifier = Modifier.align(Alignment.CenterHorizontally),
             ) {
-                Text("Use another coding agent", fontSize = 12.sp)
+                Text("Utiliser un autre agent de programmation", fontSize = 12.sp)
             }
             Surface(color = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.6f), shape = RoundedCornerShape(14.dp)) {
                 Text(
@@ -522,19 +522,19 @@ private fun BackgroundTaskSetupScreen(
         else -> Icons.Default.Shield
     }
     val currentTitle = when (currentStep) {
-        0 -> "Task notifications"
-        1 -> "Background reliability"
-        else -> "Task protection"
+        0 -> "Notifications des tâches"
+        1 -> "Fiabilité en arrière-plan"
+        else -> "Protection de la tâche"
     }
     val currentDescription = when (currentStep) {
-        0 -> "See live progress and receive an alert when Claude finishes or needs your attention."
-        1 -> "Allow Mobile Harness to continue a task when you lock the phone or switch to another app."
-        else -> "Keep the CPU awake only while a visible coding task is running, then release it automatically."
+        0 -> "Suivez la progression et recevez une alerte lorsque Claude termine ou a besoin de votre attention."
+        1 -> "Autorisez Mobile Lewys à continuer une tâche lorsque le téléphone est verrouillé ou qu’une autre application est ouverte."
+        else -> "Gardez le processeur actif uniquement pendant une tâche visible, puis libérez-le automatiquement."
     }
     val currentPrivacyNote = when (currentStep) {
-        0 -> "Only task progress, completion, and error notifications are sent."
-        1 -> "You remain in control and can stop every task from its notification."
-        else -> "The screen stays off. Protection is capped at 90 minutes and stops with the task."
+        0 -> "Seules les notifications de progression, de fin et d’erreur sont envoyées."
+        1 -> "Vous gardez le contrôle et pouvez arrêter chaque tâche depuis sa notification."
+        else -> "L’écran reste éteint. La protection est limitée à 90 minutes et s’arrête avec la tâche."
     }
     val currentGranted = when (currentStep) {
         0 -> notificationGranted
@@ -550,7 +550,7 @@ private fun BackgroundTaskSetupScreen(
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         BrandMark(compact = true)
                         Spacer(Modifier.width(9.dp))
-                        Text("Mobile Harness", fontWeight = FontWeight.Bold)
+                        Text("Mobile Lewys", fontWeight = FontWeight.Bold)
                     }
                 },
                 actions = {
@@ -573,10 +573,10 @@ private fun BackgroundTaskSetupScreen(
                 .verticalScroll(rememberScrollState()),
         ) {
             Spacer(Modifier.height(8.dp))
-            Text("Prepare for reliable setup", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+            Text("Préparez une installation fiable", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
             Spacer(Modifier.height(8.dp))
             Text(
-                "Setup time depends on the toolchains you choose next. You may leave Mobile Harness in the background while it works.",
+                "La durée dépend des outils que vous choisirez. Vous pouvez laisser Mobile Lewys travailler en arrière-plan.",
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 13.sp,
                 lineHeight = 18.sp,
@@ -594,9 +594,9 @@ private fun BackgroundTaskSetupScreen(
                 Column {
                     PermissionSummaryRow(Icons.Default.Notifications, "Notifications", notificationGranted, currentStep == 0)
                     HorizontalDivider(modifier = Modifier.padding(start = 58.dp), color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
-                    PermissionSummaryRow(Icons.Default.BatterySaver, "Background", batteryGranted, currentStep == 1)
+                    PermissionSummaryRow(Icons.Default.BatterySaver, "Arrière-plan", batteryGranted, currentStep == 1)
                     HorizontalDivider(modifier = Modifier.padding(start = 58.dp), color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
-                    PermissionSummaryRow(Icons.Default.Shield, "Task protection", taskProtectionConfirmed, currentStep == 2)
+                    PermissionSummaryRow(Icons.Default.Shield, "Protection de la tâche", taskProtectionConfirmed, currentStep == 2)
                 }
             }
 
@@ -679,9 +679,9 @@ private fun BackgroundTaskSetupScreen(
                     ) {
                         Text(
                             when (currentStep) {
-                                0 -> if (notificationGranted) "Next" else if (notificationDenied) "Open notification settings" else "Allow notifications"
-                                1 -> if (batteryGranted) "Next" else "Open battery settings"
-                                else -> "Enable and finish"
+                                0 -> if (notificationGranted) "Suivant" else if (notificationDenied) "Ouvrir les paramètres de notification" else "Autoriser les notifications"
+                                1 -> if (batteryGranted) "Suivant" else "Ouvrir les paramètres de batterie"
+                                else -> "Activer et terminer"
                             },
                             fontWeight = FontWeight.Bold,
                         )
@@ -693,7 +693,7 @@ private fun BackgroundTaskSetupScreen(
                             onClick = { currentStep += 1 },
                             modifier = Modifier.fillMaxWidth(),
                         ) {
-                            Text(if (currentStep == 0) "Continue without notifications" else "Continue without battery exemption")
+                            Text(if (currentStep == 0) "Continuer sans notifications" else "Continuer sans exemption de batterie")
                         }
                     }
                 }
@@ -701,7 +701,7 @@ private fun BackgroundTaskSetupScreen(
 
             Spacer(Modifier.height(16.dp))
             Text(
-                "You can change these settings later. Android may still stop exceptionally heavy work when the device is low on memory.",
+                "Vous pourrez modifier ces paramètres plus tard. Android peut arrêter les tâches très lourdes si la mémoire devient insuffisante.",
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 10.5.sp,
                 lineHeight = 15.sp,
@@ -743,8 +743,8 @@ private fun PermissionSummaryRow(
         )
         when {
             complete -> Icon(Icons.Default.Check, "Complete", tint = PocketGreen, modifier = Modifier.size(18.dp))
-            active -> Text("Required", color = MaterialTheme.colorScheme.primary, fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
-            else -> Text("Next", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 11.sp)
+            active -> Text("Requis", color = MaterialTheme.colorScheme.primary, fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
+            else -> Text("À suivre", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 11.sp)
         }
     }
 }
@@ -823,7 +823,7 @@ private fun RuntimeSetupPromptScreen(
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         BrandMark(compact = true)
                         Spacer(Modifier.width(9.dp))
-                        Text("Mobile Harness", fontWeight = FontWeight.Bold)
+                        Text("Mobile Lewys", fontWeight = FontWeight.Bold)
                     }
                 },
                 navigationIcon = {
@@ -865,14 +865,14 @@ private fun RuntimeSetupPromptScreen(
                 )
                 Spacer(Modifier.height(8.dp))
                 Text(
-                    text = "Ready to build on this phone",
+                    text = "Prêt à fonctionner sur ce téléphone",
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onBackground,
                 )
                 Spacer(Modifier.height(8.dp))
                 Text(
-                    text = "Your phone meets the requirements. Choose your coding tools next and Mobile Harness will handle the setup.",
+                    text = "Votre téléphone est compatible. Choisissez vos outils de développement et Mobile Lewys s’occupera de l’installation.",
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 13.5.sp,
                     lineHeight = 19.sp,
@@ -903,13 +903,13 @@ private fun RuntimeSetupPromptScreen(
                                 Spacer(Modifier.width(8.dp))
                                 Column {
                                     Text(
-                                        "System compatibility",
+                                        "Compatibilité du système",
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 14.sp,
                                         color = MaterialTheme.colorScheme.onSurface,
                                     )
                                     Text(
-                                        if (compatible) "Your device is ready" else "This device is unsupported",
+                                        if (compatible) "Votre appareil est prêt" else "Cet appareil n’est pas compatible",
                                         fontSize = 10.5.sp,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     )
@@ -921,7 +921,7 @@ private fun RuntimeSetupPromptScreen(
                                 border = BorderStroke(0.5.dp, if (compatible) PocketGreen.copy(alpha = 0.35f) else MaterialTheme.colorScheme.error.copy(alpha = 0.35f)),
                             ) {
                                 Text(
-                                    text = if (compatible) "Ready" else "Unsupported",
+                                    text = if (compatible) "Prêt" else "Incompatible",
                                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
                                     fontSize = 11.sp,
                                     fontWeight = FontWeight.SemiBold,
@@ -934,7 +934,7 @@ private fun RuntimeSetupPromptScreen(
 
                         SpecRow(
                             icon = Icons.Default.Memory,
-                            label = "Memory (RAM)",
+                            label = "Mémoire (RAM)",
                             value = "$totalRamLabel GB usable",
                             statusOk = true,
                         )
@@ -948,7 +948,7 @@ private fun RuntimeSetupPromptScreen(
 
                         SpecRow(
                             icon = Icons.Default.Storage,
-                            label = "Required download",
+                            label = "Téléchargement requis",
                             value = "149–774 MB",
                             statusOk = true,
                         )
@@ -982,7 +982,7 @@ private fun RuntimeSetupPromptScreen(
                         horizontalArrangement = Arrangement.Center,
                     ) {
                         Text(
-                            text = if (compatible) "Continue to tool setup" else "Device not supported",
+                            text = if (compatible) "Continuer la configuration" else "Appareil non compatible",
                             fontWeight = FontWeight.Bold,
                             fontSize = 15.sp,
                         )
@@ -996,7 +996,7 @@ private fun RuntimeSetupPromptScreen(
                 }
                 Spacer(Modifier.height(10.dp))
                 Text(
-                    "You can change tools later",
+                    "Vous pourrez modifier vos outils plus tard",
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     fontSize = 11.sp,
@@ -1012,14 +1012,14 @@ private fun RuntimeSetupPromptScreen(
                 )
                 Spacer(Modifier.height(6.dp))
                 Text(
-                    text = "Choose your tools",
+                    text = "Choisissez vos outils",
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onBackground,
                 )
                 Spacer(Modifier.height(6.dp))
                 Text(
-                    text = "Start lightweight. You can install more toolchains later from Settings.",
+                    text = "Commencez simplement. Vous pourrez installer d’autres outils depuis les paramètres.",
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 13.sp,
                     lineHeight = 18.sp,
@@ -1057,7 +1057,7 @@ private fun RuntimeSetupPromptScreen(
                 }
 
                 Spacer(Modifier.height(18.dp))
-                Text("CODING AGENT", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 0.9.sp)
+                Text("AGENT DE DÉVELOPPEMENT", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 0.9.sp)
                 Spacer(Modifier.height(8.dp))
 
                 Surface(
@@ -1090,7 +1090,7 @@ private fun RuntimeSetupPromptScreen(
                 )
 
                 Spacer(Modifier.height(18.dp))
-                Text("OPTIONAL TOOLCHAINS", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 0.9.sp)
+                Text("OUTILS OPTIONNELS", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 0.9.sp)
                 Spacer(Modifier.height(8.dp))
 
                 Surface(
@@ -1151,7 +1151,7 @@ private fun RuntimeSetupPromptScreen(
                         )
                         Spacer(Modifier.width(10.dp))
                         Text(
-                            text = if (compatible) "Install Mobile Harness" else "Device not supported",
+                            text = if (compatible) "Installer Mobile Lewys" else "Appareil non compatible",
                             fontWeight = FontWeight.Bold,
                             fontSize = 15.sp,
                         )
@@ -1474,7 +1474,7 @@ private fun RuntimeInstallationScreen(
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         BrandMark(compact = true)
                         Spacer(Modifier.width(9.dp))
-                        Text("Set up Mobile Harness", fontWeight = FontWeight.Bold)
+                        Text("Configurer Mobile Lewys", fontWeight = FontWeight.Bold)
                     }
                 },
                 actions = {
@@ -1520,7 +1520,7 @@ private fun RuntimeInstallationScreen(
             }
             Spacer(Modifier.height(10.dp))
             Text(
-                "Build your workspace",
+                "Préparez votre espace de travail",
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
             )
@@ -1544,7 +1544,7 @@ private fun RuntimeInstallationScreen(
             ) {
                 Column(Modifier.padding(horizontal = 16.dp, vertical = 15.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text("Installation progress", color = MaterialTheme.colorScheme.onSurface, fontSize = 13.5.sp, fontWeight = FontWeight.SemiBold)
+                        Text("Progression de l’installation", color = MaterialTheme.colorScheme.onSurface, fontSize = 13.5.sp, fontWeight = FontWeight.SemiBold)
                         Spacer(Modifier.weight(1f))
                         Text("${(state.startupProgress * 100).toInt()}%", color = MaterialTheme.colorScheme.primary, fontSize = 14.sp, fontWeight = FontWeight.Bold)
                     }
@@ -1558,7 +1558,7 @@ private fun RuntimeInstallationScreen(
                     Spacer(Modifier.height(10.dp))
                     Row(Modifier.fillMaxWidth().height(18.dp), verticalAlignment = Alignment.CenterVertically) {
                         Text(
-                            "Estimated ${setupTimeEstimate(state.selectedDevStacks)}",
+                            "Durée estimée : ${setupTimeEstimate(state.selectedDevStacks)}",
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 11.5.sp,
                         )
@@ -1579,7 +1579,7 @@ private fun RuntimeInstallationScreen(
             )
             Spacer(Modifier.height(12.dp))
             Text(
-                "You can leave Mobile Harness in the background and follow setup from the notification.",
+                "Vous pouvez laisser Mobile Lewys en arrière-plan et suivre l’installation depuis la notification.",
                 modifier = Modifier.fillMaxWidth(),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 11.sp,
@@ -1945,7 +1945,7 @@ private fun StartupErrorScreen(
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         BrandMark(compact = true)
                         Spacer(Modifier.width(9.dp))
-                        Text("Mobile Harness", fontWeight = FontWeight.Bold)
+                        Text("Mobile Lewys", fontWeight = FontWeight.Bold)
                     }
                 },
                 actions = {
@@ -1968,7 +1968,7 @@ private fun StartupErrorScreen(
             Icon(Icons.Default.Warning, null, Modifier.size(56.dp), tint = MaterialTheme.colorScheme.error)
             Spacer(Modifier.height(20.dp))
             Text(
-                if (isOffline) "You're offline" else "Mobile Harness couldn't finish starting",
+                if (isOffline) "Vous êtes hors ligne" else "Mobile Lewys n’a pas terminé son démarrage",
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
@@ -2291,7 +2291,7 @@ private fun ProviderSetupScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(if (onboarding) "Set up Mobile Harness" else "AI Provider & Settings") },
+                title = { Text(if (onboarding) "Configurer Mobile Lewys" else "Fournisseur IA et paramètres") },
                 navigationIcon = {
                     if (handleBack != null) {
                         IconButton(onClick = handleBack) {
@@ -2431,7 +2431,7 @@ private fun DeviceCheckStep(context: Context, onContinue: () -> Unit) {
     Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
         BrandMark()
         Text("Your phone is the workspace", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
-        Text("Mobile Harness checks compatibility before downloading the private Linux runtime.", color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text("Mobile Lewys vérifie la compatibilité avant de télécharger l’environnement Linux privé.", color = MaterialTheme.colorScheme.onSurfaceVariant)
         CheckRow(Icons.Default.Memory, "Memory", "$totalRamLabel GB usable · ${if (totalRamGb >= 7.5) "Full mode" else "Lite mode"}", true)
         CheckRow(Icons.Default.Code, "Processor", Build.SUPPORTED_ABIS.firstOrNull() ?: "Unknown", arm64)
         CheckRow(Icons.Default.Storage, "Android", "Android ${Build.VERSION.RELEASE}", true)
@@ -2500,7 +2500,7 @@ private fun ProviderChoiceStep(
         Text("Connect your AI", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
         Spacer(Modifier.height(4.dp))
         Text(
-            "Choose how Mobile Harness should access your coding model.",
+            "Choisissez comment Mobile Lewys doit accéder à votre modèle de développement.",
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 13.sp,
         )
@@ -2821,13 +2821,13 @@ private fun ProviderCredentialsStep(
     ) {
         item {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("STEP 3 OF 3", color = PocketOrange, fontSize = 12.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                Text("ÉTAPE 3 SUR 3", color = PocketOrange, fontSize = 12.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
                 Spacer(Modifier.weight(1f))
                 Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = CircleShape) {
                     Row(Modifier.padding(horizontal = 12.dp, vertical = 7.dp), verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.Default.Key, null, Modifier.size(15.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
                         Spacer(Modifier.width(6.dp))
-                        Text("Encrypted locally", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Text("Chiffré localement", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
             }
@@ -2837,7 +2837,7 @@ private fun ProviderCredentialsStep(
             Text(
                 when {
                     agentKind == AgentKind.DEEPSEEK_HARNESS -> "DeepSeek Harness will connect through this API endpoint."
-                    provider.protocol.name.startsWith("OPENAI") -> "Mobile Harness will translate Claude Code requests for this provider."
+                    provider.protocol.name.startsWith("OPENAI") -> "Mobile Lewys traduira les requêtes Claude Code pour ce fournisseur."
                     else -> "Claude Code will connect through this API endpoint."
                 },
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -2997,10 +2997,10 @@ private fun ClaudeSubscriptionCredentialsStep(
                 }
             }
             Spacer(Modifier.height(16.dp))
-            Text("Claude subscription", style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold)
+            Text("Abonnement Claude", style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold)
             Spacer(Modifier.height(6.dp))
             Text(
-                "Connect a Claude Pro, Max, Team, or Enterprise subscription to Claude Code.",
+                "Connectez un abonnement Claude Pro, Max, Team ou Enterprise à Claude Code.",
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
@@ -3011,7 +3011,7 @@ private fun ClaudeSubscriptionCredentialsStep(
                 border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
             ) {
                 Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Text("1. On a computer where Claude Code is installed, run:", fontSize = 13.sp)
+                    Text("1. Sur un ordinateur où Claude Code est installé, exécutez :", fontSize = 13.sp)
                     Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = RoundedCornerShape(10.dp)) {
                         Text(
                             "claude setup-token",
@@ -3020,19 +3020,19 @@ private fun ClaudeSubscriptionCredentialsStep(
                             color = PocketOrange,
                         )
                     }
-                    Text("2. Sign in to Claude and paste the generated token here.", fontSize = 13.sp)
+                    Text("2. Connectez-vous à Claude et collez le jeton généré ici.", fontSize = 13.sp)
                     OutlinedTextField(
                         value = token,
                         onValueChange = onToken,
-                        label = { Text("Claude setup token") },
-                        placeholder = { Text(if (hasStoredToken) "Saved securely — leave blank to keep it" else "Paste token") },
-                        supportingText = if (hasStoredToken && token.isBlank()) ({ Text("A saved subscription token is ready to use") }) else null,
+                        label = { Text("Jeton de configuration Claude") },
+                        placeholder = { Text(if (hasStoredToken) "Enregistré en sécurité — laissez vide pour le conserver" else "Collez le jeton") },
+                        supportingText = if (hasStoredToken && token.isBlank()) ({ Text("Un jeton d’abonnement enregistré est prêt à être utilisé") }) else null,
                         singleLine = true,
                         visualTransformation = if (tokenVisible) VisualTransformation.None else PasswordVisualTransformation(),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                         trailingIcon = {
                             IconButton(onClick = { tokenVisible = !tokenVisible }) {
-                                Icon(if (tokenVisible) Icons.Default.VisibilityOff else Icons.Default.Visibility, "Toggle token visibility")
+                                Icon(if (tokenVisible) Icons.Default.VisibilityOff else Icons.Default.Visibility, "Afficher ou masquer le jeton")
                             }
                         },
                         modifier = Modifier.fillMaxWidth(),
@@ -3046,12 +3046,12 @@ private fun ClaudeSubscriptionCredentialsStep(
                 enabled = hasToken,
                 modifier = Modifier.fillMaxWidth().height(54.dp),
             ) {
-                Text("Save and continue")
+                Text("Enregistrer et continuer")
             }
         }
         item {
             TextButton(onClick = onChangeAgent, modifier = Modifier.fillMaxWidth()) {
-                Text("Use another coding agent", fontSize = 12.sp)
+                Text("Choisir un autre agent de développement", fontSize = 12.sp)
             }
         }
     }
@@ -3102,7 +3102,7 @@ private fun ProjectsScreen(
         topBar = {
             TopAppBar(
                 modifier = Modifier.padding(top = 8.dp),
-                title = { Row(verticalAlignment = Alignment.CenterVertically) { BrandMark(compact = true); Spacer(Modifier.width(9.dp)); Text("Mobile Harness", fontWeight = FontWeight.Bold) } },
+                title = { Row(verticalAlignment = Alignment.CenterVertically) { BrandMark(compact = true); Spacer(Modifier.width(9.dp)); Text("Mobile Lewys", fontWeight = FontWeight.Bold) } },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
             )
         },
@@ -3114,8 +3114,8 @@ private fun ProjectsScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             item {
-                Text("Build from your phone", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
-                Text("Chat, review changes, and preview your project.", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text("Développez depuis votre téléphone", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+                Text("Discutez, examinez les changements et prévisualisez votre projet.", color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(Modifier.height(16.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -3135,7 +3135,7 @@ private fun ProjectsScreen(
                         )
                         Spacer(Modifier.width(6.dp))
                         Text(
-                            text = "Quick project",
+                            text = "Projet rapide",
                             fontWeight = FontWeight.SemiBold,
                             fontSize = 13.sp,
                             maxLines = 1,
@@ -3155,7 +3155,7 @@ private fun ProjectsScreen(
                         )
                         Spacer(Modifier.width(6.dp))
                         Text(
-                            text = "New project",
+                            text = "Nouveau projet",
                             fontWeight = FontWeight.SemiBold,
                             fontSize = 13.sp,
                             maxLines = 1,
@@ -3180,9 +3180,9 @@ private fun ProjectsScreen(
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
                             Column(Modifier.weight(1f)) {
-                                Text("Bring an existing project", fontSize = 13.5.sp, fontWeight = FontWeight.Bold)
+                                Text("Importer un projet existant", fontSize = 13.5.sp, fontWeight = FontWeight.Bold)
                                 Text(
-                                    if (isImportExpanded) "Import files or clone complete Git history" else "ZIP file, Git repository, or GitHub",
+                                    if (isImportExpanded) "Importer des fichiers ou cloner l’historique Git complet" else "Fichier ZIP, dépôt Git ou GitHub",
                                     fontSize = 10.5.sp,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 )
@@ -3204,7 +3204,7 @@ private fun ProjectsScreen(
                                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(9.dp)) {
                                     ImportSourceButton(
                                         icon = Icons.Default.Download,
-                                        title = if (state.projectImporting) "Importing…" else "ZIP file",
+                                        title = if (state.projectImporting) "Importation…" else "Fichier ZIP",
                                         enabled = !state.projectImporting && !state.gitCloneRunning,
                                         modifier = Modifier.weight(1f),
                                         onClick = { importZipLauncher.launch("*/*") },
@@ -3212,7 +3212,7 @@ private fun ProjectsScreen(
                                     )
                                     ImportSourceButton(
                                         icon = Icons.Default.Code,
-                                        title = if (state.gitCloneRunning) "Cloning…" else "Git URL",
+                                        title = if (state.gitCloneRunning) "Clonage…" else "Adresse Git",
                                         enabled = !state.projectImporting && !state.gitCloneRunning,
                                         modifier = Modifier.weight(1f),
                                         onClick = { showGitDialog = true },
@@ -3238,7 +3238,7 @@ private fun ProjectsScreen(
                                                 fontWeight = FontWeight.SemiBold,
                                             )
                                             Text(
-                                                if (state.githubLogin != null) "Browse public and private repositories" else "Sign in to access your repositories",
+                                                if (state.githubLogin != null) "Parcourir les dépôts publics et privés" else "Connectez-vous pour accéder à vos dépôts",
                                                 fontSize = 10.sp,
                                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                                             )
@@ -3268,15 +3268,15 @@ private fun ProjectsScreen(
                             }
                             Spacer(Modifier.width(12.dp))
                             Column(Modifier.weight(1f)) {
-                                Text("Mobile Harness ${update.versionName}", fontWeight = FontWeight.Bold)
-                                Text("A new update is ready", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Text("Mobile Lewys ${update.versionName}", fontWeight = FontWeight.Bold)
+                                Text("Une mise à jour est disponible", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
-                            Text("Update", color = PocketOrange, fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                            Text("Mettre à jour", color = PocketOrange, fontWeight = FontWeight.Bold, fontSize = 13.sp)
                         }
                     }
                 }
             }
-            item { Text("Your projects", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold) }
+            item { Text("Vos projets", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold) }
             if (projects.isEmpty()) {
                 item {
                     Card(
@@ -3309,13 +3309,13 @@ private fun ProjectsScreen(
                             }
                             Spacer(Modifier.height(4.dp))
                             Text(
-                                "No projects yet",
+                                "Aucun projet pour le moment",
                                 style = MaterialTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold,
                                 textAlign = TextAlign.Center,
                             )
                             Text(
-                                "Create a named project or start instantly with a Quick Project.",
+                                "Créez un projet nommé ou démarrez immédiatement avec un projet rapide.",
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 textAlign = TextAlign.Center,
@@ -3340,10 +3340,10 @@ private fun ProjectsScreen(
     }
     if (showCreate) AlertDialog(
         onDismissRequest = { showCreate = false },
-        title = { Text("Create a starter project") },
+        title = { Text("Créer un projet") },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                OutlinedTextField(name, { name = it }, label = { Text("Project name") }, singleLine = true)
+                OutlinedTextField(name, { name = it }, label = { Text("Nom du projet") }, singleLine = true)
                 if (name.isNotBlank()) {
                     Text(
                         "Terminal folder: /workspace/${projectSlug(name)}",
@@ -3354,20 +3354,20 @@ private fun ProjectsScreen(
                 }
             }
         },
-        confirmButton = { TextButton(onClick = { onCreate(name); showCreate = false; name = "" }, enabled = name.isNotBlank()) { Text("Create") } },
-        dismissButton = { TextButton(onClick = { showCreate = false }) { Text("Cancel") } },
+        confirmButton = { TextButton(onClick = { onCreate(name); showCreate = false; name = "" }, enabled = name.isNotBlank()) { Text("Créer") } },
+        dismissButton = { TextButton(onClick = { showCreate = false }) { Text("Annuler") } },
     )
     if (showGitDialog) AlertDialog(
         onDismissRequest = { if (!state.gitCloneRunning) showGitDialog = false },
         icon = { Icon(Icons.Default.Code, null, tint = PocketOrange) },
-        title = { Text("Clone Git repository") },
+        title = { Text("Cloner un dépôt Git") },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                Text("Paste a public HTTPS repository URL. Its complete Git history and current branch will be kept.", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 12.5.sp)
+                Text("Collez l’adresse HTTPS d’un dépôt public. Son historique Git complet et sa branche actuelle seront conservés.", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 12.5.sp)
                 OutlinedTextField(
                     value = gitUrl,
                     onValueChange = { gitUrl = it },
-                    label = { Text("HTTPS Git URL") },
+                    label = { Text("Adresse HTTPS du dépôt Git") },
                     placeholder = { Text("https://github.com/owner/repository.git") },
                     singleLine = true,
                 )
@@ -3378,9 +3378,9 @@ private fun ProjectsScreen(
             Button(
                 enabled = gitUrl.isNotBlank() && !state.gitCloneRunning,
                 onClick = { onCloneGit(gitUrl); showGitDialog = false; gitUrl = "" },
-            ) { Text(if (state.gitCloneRunning) "Cloning…" else "Clone project") }
+            ) { Text(if (state.gitCloneRunning) "Clonage…" else "Cloner le projet") }
         },
-        dismissButton = { TextButton(onClick = { showGitDialog = false }, enabled = !state.gitCloneRunning) { Text("Cancel") } },
+        dismissButton = { TextButton(onClick = { showGitDialog = false }, enabled = !state.gitCloneRunning) { Text("Annuler") } },
     )
     if (showGitHubDialog) {
         val clipboard = LocalClipboardManager.current
@@ -3395,11 +3395,11 @@ private fun ProjectsScreen(
                 when (state.githubAuthStatus) {
                     GitHubAuthStatus.DISCONNECTED, GitHubAuthStatus.ERROR -> Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         Text(
-                            state.githubMessage ?: "Sign in with GitHub's official CLI to browse public and private repositories.",
+                            state.githubMessage ?: "Connectez-vous avec l’outil officiel GitHub pour parcourir vos dépôts publics et privés.",
                             color = if (state.githubAuthStatus == GitHubAuthStatus.ERROR) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 13.sp,
                         )
-                        Button(onClick = onStartGitHubLogin, modifier = Modifier.fillMaxWidth()) { Text("Sign in with GitHub") }
+                        Button(onClick = onStartGitHubLogin, modifier = Modifier.fillMaxWidth()) { Text("Se connecter à GitHub") }
                     }
                     GitHubAuthStatus.STARTING -> Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
                         CircularProgressIndicator(Modifier.size(28.dp), strokeWidth = 2.5.dp)
@@ -3501,14 +3501,14 @@ private fun ProjectsScreen(
             title = { Text("Update to ${update.versionName}", fontWeight = FontWeight.Bold) },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Text(update.notes.ifBlank { "Get the latest improvements and fixes for Mobile Harness." })
+                        Text(update.notes.ifBlank { "Obtenez les dernières améliorations et corrections de Mobile Lewys." })
                     if (update.sizeBytes > 0) Text("Download size: ${formatMegabytes(update.sizeBytes)}", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 13.sp)
                     if (!canInstall) {
                         Surface(shape = RoundedCornerShape(12.dp), color = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.65f)) {
                             Row(Modifier.padding(12.dp), verticalAlignment = Alignment.Top) {
                                 Icon(Icons.Default.Warning, null, tint = MaterialTheme.colorScheme.error, modifier = Modifier.size(20.dp))
                                 Spacer(Modifier.width(8.dp))
-                                Text("Allow ‘Install unknown apps’ for Mobile Harness. Without this permission, Android will not install the update.", fontSize = 13.sp)
+                                Text("Autorisez l’installation d’applications inconnues pour Mobile Lewys. Sans cette permission, Android n’installera pas la mise à jour.", fontSize = 13.sp)
                             }
                         }
                     }
@@ -5184,12 +5184,12 @@ private fun ChangesTab(
                 border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.35f)),
             ) {
                 Column(Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 12.dp)) {
-                    Text("Changes", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
-                    Text("Review everything the AI changed.", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text("Modifications", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+                    Text("Examinez toutes les modifications apportées par l’IA.", color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
         }
-        if (changes.isEmpty()) item { EmptyState(Icons.Default.Code, "No changes yet", "Ask Mobile Harness to update your project.") }
+        if (changes.isEmpty()) item { EmptyState(Icons.Default.Code, "Aucune modification", "Demandez à Mobile Lewys de mettre à jour votre projet.") }
         items(changes, key = { it.path }) { change ->
             val expanded = expandedPath == change.path
             Card(Modifier.fillMaxWidth()) {
@@ -5203,7 +5203,7 @@ private fun ChangesTab(
                         Column(Modifier.weight(1f)) {
                             Text(change.path, fontWeight = FontWeight.Medium, maxLines = 1)
                             Text(
-                                if (expanded) "Hide line-by-line diff" else "Tap to review diff",
+                                if (expanded) "Masquer le détail ligne par ligne" else "Touchez pour examiner les différences",
                                 fontSize = 11.sp,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
@@ -5230,14 +5230,14 @@ private fun ChangesTab(
                                     onUndoFile(change.path)
                                 },
                                 modifier = Modifier.weight(1f),
-                            ) { Text("Undo file") }
+                            ) { Text("Annuler le fichier") }
                             Button(
                                 onClick = {
                                     expandedPath = null
                                     onKeepFile(change.path)
                                 },
                                 modifier = Modifier.weight(1f),
-                            ) { Text("Keep file") }
+                            ) { Text("Conserver le fichier") }
                         }
                     }
                 }
@@ -5245,8 +5245,8 @@ private fun ChangesTab(
         }
         if (changes.isNotEmpty()) item {
             Row(horizontalArrangement = Arrangement.spacedBy(9.dp)) {
-                OutlinedButton(onClick = onUndo, Modifier.weight(1f)) { Text("Undo task") }
-                Button(onClick = onKeep, Modifier.weight(1f)) { Text("Keep changes") }
+                OutlinedButton(onClick = onUndo, Modifier.weight(1f)) { Text("Annuler la tâche") }
+                Button(onClick = onKeep, Modifier.weight(1f)) { Text("Conserver les modifications") }
             }
         }
     }
@@ -5472,7 +5472,7 @@ private fun BrandMark(modifier: Modifier = Modifier, compact: Boolean = false) {
     ) {
         Icon(
             imageVector = Icons.Default.Terminal,
-            contentDescription = "Mobile Harness",
+            contentDescription = "Mobile Lewys",
             modifier = Modifier.size(iconSize),
             tint = primary,
         )
