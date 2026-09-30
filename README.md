@@ -23,7 +23,7 @@
   [**Watch Walkthrough (3 min)**](https://youtu.be/QzAau52Z7yQ) &nbsp;•&nbsp;
   [**Quickstart Guide**](#quickstart) &nbsp;•&nbsp;
   [**Architecture**](#architecture) &nbsp;•&nbsp;
-  [**Build from Source**](#developer-guides)
+  [**Compiler depuis les sources**](#developer-guides)
 
 </div>
 

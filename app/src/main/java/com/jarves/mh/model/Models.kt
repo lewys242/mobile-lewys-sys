@@ -25,7 +25,7 @@ enum class ProviderKind(
     KIMI("Kimi", "Point d’accès compatible Anthropic", ProviderProtocol.ANTHROPIC_GATEWAY, "https://api.moonshot.ai/anthropic", "kimi-k2.6", true),
     OPENCODE_ZEN(
         "OpenCode Zen",
-        "Models through the OpenCode Zen gateway",
+        "Modèles via la passerelle OpenCode Zen",
         ProviderProtocol.OPENAI_RESPONSES,
         "https://opencode.ai/zen/v1",
         "deepseek-v4-flash",
@@ -34,7 +34,7 @@ enum class ProviderKind(
     ),
     NVIDIA_NIM(
         "NVIDIA NIM",
-        "OpenAI-compatible models hosted by NVIDIA",
+        "Modèles compatibles OpenAI hébergés par NVIDIA",
         ProviderProtocol.OPENAI_CHAT,
         "https://integrate.api.nvidia.com/v1",
         "qwen/qwen2.5-coder-32b-instruct",
@@ -57,20 +57,20 @@ enum class AgentKind(
     CLAUDE_CODE(
         "claude-code",
         "Claude Code",
-        "Anthropic's coding agent · broad provider support",
-        "71.8 MB",
+        "Agent de développement Anthropic · compatible avec plusieurs fournisseurs",
+        "71,8 Mo",
     ),
     DEEPSEEK_HARNESS(
         "deepseek-harness",
         "DeepSeek Harness",
-        "Official DeepSeek coding agent · API-key providers",
-        "26.5 MB",
+        "Agent officiel DeepSeek · fournisseurs avec clé API",
+        "26,5 Mo",
     ),
     ANTIGRAVITY(
         "antigravity",
         "Antigravity CLI",
-        "Google's official coding agent · Google account",
-        "39.9 MB",
+        "Agent officiel Google · compte Google",
+        "39,9 Mo",
     ),
     ;
 
@@ -236,28 +236,28 @@ enum class DevStack(
 ) {
     WEB(
         "Web (JavaScript / TypeScript)",
-        "Websites and web apps with HTML, CSS, and JS frameworks.",
-        "Node.js and npm (already included)",
+        "Sites et applications Web avec HTML, CSS et frameworks JavaScript.",
+        "Node.js et npm (déjà inclus)",
     ),
     PYTHON(
         "Python",
-        "Scripts, automation, data work, and Python backends.",
-        "python3, pip, venv, and build tools",
+        "Scripts, automatisation, traitement de données et services Python.",
+        "python3, pip, venv et outils de compilation",
     ),
     ANDROID(
         "Android (Java / Kotlin)",
-        "Build Android app projects and install them directly on this phone.",
-        "JDK 17, ARM64 Android SDK 36, Build Tools 35, Gradle 8.14.3, and an offline Maven cache",
+        "Compilez des applications Android et installez-les directement sur ce téléphone.",
+        "JDK 17, SDK Android 36 ARM64, Build Tools 35, Gradle 8.14.3 et cache Maven hors ligne",
     ),
     CPP(
         "C / C++",
-        "Fast compiled programs, algorithms, and systems code.",
-        "gcc, g++, make, cmake, gdb",
+        "Programmes compilés performants, algorithmes et systèmes.",
+        "gcc, g++, make, cmake et gdb",
     ),
     PHP(
         "PHP",
-        "Websites and apps with PHP — classic sites and Laravel projects.",
-        "php-cli, common extensions, and Composer",
+        "Sites et applications PHP classiques ou avec Laravel.",
+        "php-cli, extensions courantes et Composer",
     ),
 }
 

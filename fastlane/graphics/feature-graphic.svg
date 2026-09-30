@@ -1,6 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1024" height="500" viewBox="0 0 1024 500">
-  <image xlink:href="feature-background.png" width="1024" height="500"/>
-  <text x="64" y="218" fill="#F3F5F7" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="62" font-weight="650">Mobile Lewys</text>
-  <text x="67" y="268" fill="#A8B0BC" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="30" font-weight="400">Build from your phone</text>
-  <rect x="67" y="302" width="94" height="7" rx="3.5" fill="#F28C52"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="500" viewBox="0 0 1024 500">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1512"/>
+      <stop offset="1" stop-color="#142820"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="500" fill="url(#bg)"/>
+  <circle cx="846" cy="250" r="190" fill="#173B30" opacity=".55"/>
+  <rect x="64" y="80" width="76" height="76" rx="22" fill="#4AD6AD"/>
+  <rect x="81" y="101" width="42" height="34" rx="5" fill="#0B1512"/>
+  <path d="m89 110 7 8-7 8 4 4 11-12-11-12Zm18 15h10v5h-10z" fill="#C1F4E4"/>
+  <text x="64" y="252" fill="#F3FBF7" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="62" font-weight="700">Mobile Lewys</text>
+  <text x="67" y="306" fill="#B3CEC2" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="28" font-weight="400">Développer depuis votre téléphone</text>
+  <rect x="67" y="342" width="94" height="7" rx="3.5" fill="#4AD6AD"/>
+  <rect x="640" y="72" width="310" height="356" rx="28" fill="#10211B" stroke="#315747" stroke-width="2"/>
+  <circle cx="671" cy="101" r="6" fill="#4AD6AD"/>
+  <circle cx="692" cy="101" r="6" fill="#8BC9BC"/>
+  <circle cx="713" cy="101" r="6" fill="#75C98D"/>
+  <rect x="672" y="139" width="180" height="12" rx="6" fill="#4AD6AD" opacity=".9"/>
+  <rect x="672" y="168" width="230" height="8" rx="4" fill="#527568"/>
+  <rect x="672" y="194" width="198" height="8" rx="4" fill="#527568"/>
+  <rect x="672" y="233" width="242" height="120" rx="15" fill="#192D25" stroke="#315747"/>
+  <path d="m696 272 13 13-13 13 6 6 19-19-19-19Zm37 24h55v8h-55z" fill="#4AD6AD"/>
+  <rect x="672" y="378" width="145" height="9" rx="4.5" fill="#8BC9BC" opacity=".75"/>
 </svg>

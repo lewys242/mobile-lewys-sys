@@ -215,7 +215,7 @@ import com.jarves.mh.network.ModelDiscoveryResult
 import com.jarves.mh.network.GitHubRepository
 import com.jarves.mh.ui.theme.PocketBlue
 import com.jarves.mh.ui.theme.PocketGreen
-import com.jarves.mh.ui.theme.PocketOrange
+import com.jarves.mh.ui.theme.PocketMint
 import java.io.ByteArrayInputStream
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -617,7 +617,7 @@ private fun BackgroundTaskSetupScreen(
                         }
                         Spacer(Modifier.width(12.dp))
                         Column(Modifier.weight(1f)) {
-                            Text("STEP ${currentStep + 1} OF 3", color = MaterialTheme.colorScheme.primary, fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 0.8.sp)
+                            Text("ÉTAPE ${currentStep + 1} SUR 3", color = MaterialTheme.colorScheme.primary, fontSize = 9.sp, fontWeight = FontWeight.Bold, letterSpacing = 0.8.sp)
                             Text(currentTitle, color = MaterialTheme.colorScheme.onSurface, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
                         }
                         if (currentGranted) Icon(Icons.Default.Check, "Granted", tint = PocketGreen)
@@ -798,7 +798,7 @@ private fun RuntimeSetupPromptScreen(
     val activityManager = context.getSystemService(ActivityManager::class.java)
     val memoryInfo = remember { ActivityManager.MemoryInfo().also(activityManager::getMemoryInfo) }
     val totalRamGb = memoryInfo.totalMem.toDouble() / 1_073_741_824.0
-    val totalRamLabel = String.format(java.util.Locale.US, "%.1f", totalRamGb)
+    val totalRamLabel = String.format(java.util.Locale.FRANCE, "%.1f", totalRamGb)
     val arm64 = supportsArm64Runtime(Build.SUPPORTED_ABIS, System.getProperty("os.arch"))
     // Android reports usable physical memory after hardware/GPU reservations.
     // RAM is therefore informational; it must not reject nominal 4 GB phones.
@@ -829,7 +829,7 @@ private fun RuntimeSetupPromptScreen(
                 navigationIcon = {
                     if (currentStep > 0) {
                         IconButton(onClick = { currentStep = 0 }) {
-                            Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back")
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack, "Retour")
                         }
                     }
                 },
@@ -857,7 +857,7 @@ private fun RuntimeSetupPromptScreen(
             if (currentStep == 0) {
                 // Step 0: Device Compatibility & Verification
                 Text(
-                    text = "DEVICE CHECK",
+                    text = "VÉRIFICATION DE L’APPAREIL",
                     color = MaterialTheme.colorScheme.primary,
                     fontSize = 10.sp,
                     fontWeight = FontWeight.Bold,
@@ -935,13 +935,13 @@ private fun RuntimeSetupPromptScreen(
                         SpecRow(
                             icon = Icons.Default.Memory,
                             label = "Mémoire (RAM)",
-                            value = "$totalRamLabel GB usable",
+                            value = "$totalRamLabel Go utilisables",
                             statusOk = true,
                         )
 
                         SpecRow(
                             icon = Icons.Default.Code,
-                            label = "Processor",
+                            label = "Processeur",
                             value = Build.SUPPORTED_ABIS.firstOrNull() ?: "arm64-v8a",
                             statusOk = arm64,
                         )
@@ -953,7 +953,7 @@ private fun RuntimeSetupPromptScreen(
                             statusOk = true,
                         )
                         Text(
-                            "Based on the tools you select",
+                            "Selon les outils sélectionnés",
                             modifier = Modifier.padding(start = 26.dp),
                             fontSize = 10.5.sp,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -1004,7 +1004,7 @@ private fun RuntimeSetupPromptScreen(
                 )
             } else {
                 Text(
-                    "TOOLCHAIN SETUP",
+                    "CONFIGURATION DES OUTILS",
                     color = MaterialTheme.colorScheme.primary,
                     fontSize = 10.sp,
                     fontWeight = FontWeight.Bold,
@@ -1045,7 +1045,7 @@ private fun RuntimeSetupPromptScreen(
                         Spacer(Modifier.width(11.dp))
                         Column(Modifier.weight(1f)) {
                             Text(
-                                if (BuildConfig.OFFLINE_RUNTIME_BUNDLES) "Core runtime · 68.8 MB" else "Core runtime · 68.8 MB download",
+                                if (BuildConfig.OFFLINE_RUNTIME_BUNDLES) "Environnement de base · 68,8 Mo" else "Environnement de base · 68,8 Mo à télécharger",
                                 color = MaterialTheme.colorScheme.onSurface,
                                 fontWeight = FontWeight.SemiBold,
                                 fontSize = 13.5.sp,
@@ -1083,7 +1083,7 @@ private fun RuntimeSetupPromptScreen(
                     }
                 }
                 Text(
-                    "Only the selected optional agent is downloaded. You can install or switch agents later from Settings.",
+                    "Seul l’agent facultatif choisi sera téléchargé. Vous pourrez en installer un autre ou en changer plus tard dans les paramètres.",
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 11.sp,
                     modifier = Modifier.padding(top = 8.dp, start = 2.dp, end = 2.dp),
@@ -1194,19 +1194,19 @@ private fun setupTimeEstimate(selected: Set<DevStack>): String {
         minimumMinutes += 2
         maximumMinutes += 4
     }
-    return "$minimumMinutes–$maximumMinutes minutes"
+    return "$minimumMinutes–$maximumMinutes min"
 }
 
 private fun stackDownloadLabel(stack: DevStack): String = when {
-    stack == DevStack.WEB -> " · included"
-    BuildConfig.OFFLINE_RUNTIME_BUNDLES && stack in setOf(DevStack.PYTHON, DevStack.ANDROID) -> " · included"
-    !BuildConfig.OFFLINE_RUNTIME_BUNDLES && stack == DevStack.PYTHON -> " · 55 MB"
-    !BuildConfig.OFFLINE_RUNTIME_BUNDLES && stack == DevStack.ANDROID -> " · 570 MB"
+    stack == DevStack.WEB -> " · inclus"
+    BuildConfig.OFFLINE_RUNTIME_BUNDLES && stack in setOf(DevStack.PYTHON, DevStack.ANDROID) -> " · inclus"
+    !BuildConfig.OFFLINE_RUNTIME_BUNDLES && stack == DevStack.PYTHON -> " · 55 Mo"
+    !BuildConfig.OFFLINE_RUNTIME_BUNDLES && stack == DevStack.ANDROID -> " · 570 Mo"
     else -> ""
 }
 
 private fun toolchainDownloadSummary(selected: Set<DevStack>, agent: AgentKind): String {
-    if (BuildConfig.OFFLINE_RUNTIME_BUNDLES) return "All selected bundles are included in this offline app"
+    if (BuildConfig.OFFLINE_RUNTIME_BUNDLES) return "Tous les outils sélectionnés sont inclus dans cette version hors ligne"
     val total = CORE_RUNTIME_DOWNLOAD_MB +
         when (agent) {
             AgentKind.CLAUDE_CODE -> CLAUDE_RUNTIME_DOWNLOAD_MB
@@ -1217,11 +1217,11 @@ private fun toolchainDownloadSummary(selected: Set<DevStack>, agent: AgentKind):
         (if (DevStack.ANDROID in selected) ANDROID_RUNTIME_DOWNLOAD_MB else 0)
     val laterPackages = selected.intersect(setOf(DevStack.CPP, DevStack.PHP))
     return buildString {
-        append("Download: ")
+        append("Téléchargement : ")
         append(total)
-        append(" MB")
-        if (laterPackages.isNotEmpty()) append(" · C/PHP packages download later")
-        if (total >= 500) append(" · Wi-Fi recommended")
+        append(" Mo")
+        if (laterPackages.isNotEmpty()) append(" · outils C/PHP téléchargés ensuite")
+        if (total >= 500) append(" · Wi-Fi conseillé")
     }
 }
 
@@ -1234,11 +1234,11 @@ private fun DevStackChoiceRow(
 ) {
     val visuals = getDevStackVisuals(stack)
     val conciseDescription = when (stack) {
-        DevStack.WEB -> "Included with the Core runtime"
-        DevStack.PYTHON -> "Scripts, automation and backends"
-        DevStack.ANDROID -> "Java and Kotlin build tools"
-        DevStack.CPP -> "Native apps and command-line tools"
-        DevStack.PHP -> "PHP sites and Laravel projects"
+        DevStack.WEB -> "Inclus dans l’environnement de base"
+        DevStack.PYTHON -> "Scripts, automatisation et services Python"
+        DevStack.ANDROID -> "Outils de compilation Java et Kotlin"
+        DevStack.CPP -> "Applications natives et outils en ligne de commande"
+        DevStack.PHP -> "Sites PHP et projets Laravel"
     }
 
     Row(
@@ -1332,13 +1332,13 @@ private fun AgentChoiceRow(
                 if (agent == AgentKind.DEEPSEEK_HARNESS) {
                     Spacer(Modifier.width(7.dp))
                     Surface(
-                        color = PocketOrange.copy(alpha = 0.14f),
+                        color = PocketMint.copy(alpha = 0.14f),
                         shape = RoundedCornerShape(50),
                     ) {
                         Text(
-                            "Recommended",
+                            "Recommandé",
                             modifier = Modifier.padding(horizontal = 7.dp, vertical = 2.dp),
-                            color = PocketOrange,
+                            color = PocketMint,
                             fontSize = 9.sp,
                             fontWeight = FontWeight.Bold,
                             maxLines = 1,
@@ -1497,10 +1497,10 @@ private fun RuntimeInstallationScreen(
             Spacer(Modifier.height(16.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    "STEP 1 OF 3",
+                    "ÉTAPE 1 SUR 3",
                     fontSize = 10.sp,
                     fontWeight = FontWeight.Bold,
-                    color = PocketOrange,
+                    color = PocketMint,
                     letterSpacing = 1.1.sp,
                 )
                 Spacer(Modifier.weight(1f))
@@ -1514,7 +1514,7 @@ private fun RuntimeInstallationScreen(
                     ) {
                         Icon(Icons.Default.Shield, null, tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(12.dp))
                         Spacer(Modifier.width(5.dp))
-                        Text("Local setup", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 10.sp, fontWeight = FontWeight.SemiBold)
+                        Text("Installation locale", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 10.sp, fontWeight = FontWeight.SemiBold)
                     }
                 }
             }
@@ -2295,7 +2295,7 @@ private fun ProviderSetupScreen(
                 navigationIcon = {
                     if (handleBack != null) {
                         IconButton(onClick = handleBack) {
-                            Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back")
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack, "Retour")
                         }
                     }
                 },
@@ -2304,7 +2304,7 @@ private fun ProviderSetupScreen(
                         IconButton(onClick = onToggleTheme) {
                             Icon(
                                 if (themeMode == AppThemeMode.DARK) Icons.Default.LightMode else Icons.Default.DarkMode,
-                                contentDescription = "Toggle theme",
+                                contentDescription = "Changer de thème",
                             )
                         }
                     }
@@ -2375,7 +2375,7 @@ private fun DshApiProtocolPicker(selected: String, onSelected: (String) -> Unit)
     val options = listOf("anthropic-messages", "openai-completions", "openai-responses")
     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         Text(
-            "Gateway protocol",
+            "Protocole de passerelle",
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 12.sp,
         )
@@ -2401,7 +2401,7 @@ private fun DshApiProtocolPicker(selected: String, onSelected: (String) -> Unit)
             }
         }
         Text(
-            "Pick the protocol your gateway speaks; DeepSeek Harness routes it directly.",
+            "Choisissez le protocole de votre passerelle ; DeepSeek Harness l’utilisera directement.",
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 11.sp,
         )
@@ -2414,7 +2414,7 @@ private fun StepDots(step: Int) {
         repeat(3) { index ->
             Box(
                 Modifier.height(5.dp).weight(1f)
-                    .background(if (index <= step) PocketOrange else MaterialTheme.colorScheme.outlineVariant, CircleShape),
+                    .background(if (index <= step) PocketMint else MaterialTheme.colorScheme.outlineVariant, CircleShape),
             )
         }
     }
@@ -2425,25 +2425,25 @@ private fun DeviceCheckStep(context: Context, onContinue: () -> Unit) {
     val activityManager = context.getSystemService(ActivityManager::class.java)
     val memoryInfo = remember { ActivityManager.MemoryInfo().also(activityManager::getMemoryInfo) }
     val totalRamGb = memoryInfo.totalMem.toDouble() / 1_073_741_824.0
-    val totalRamLabel = String.format(java.util.Locale.US, "%.1f", totalRamGb)
+    val totalRamLabel = String.format(java.util.Locale.FRANCE, "%.1f", totalRamGb)
     val arm64 = supportsArm64Runtime(Build.SUPPORTED_ABIS, System.getProperty("os.arch"))
     val compatible = arm64
     Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
         BrandMark()
-        Text("Your phone is the workspace", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+        Text("Votre téléphone devient votre espace de travail", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
         Text("Mobile Lewys vérifie la compatibilité avant de télécharger l’environnement Linux privé.", color = MaterialTheme.colorScheme.onSurfaceVariant)
-        CheckRow(Icons.Default.Memory, "Memory", "$totalRamLabel GB usable · ${if (totalRamGb >= 7.5) "Full mode" else "Lite mode"}", true)
-        CheckRow(Icons.Default.Code, "Processor", Build.SUPPORTED_ABIS.firstOrNull() ?: "Unknown", arm64)
-        CheckRow(Icons.Default.Storage, "Android", "Android ${Build.VERSION.RELEASE}", true)
+        CheckRow(Icons.Default.Memory, "Mémoire", "$totalRamLabel Go utilisables · ${if (totalRamGb >= 7.5) "Mode complet" else "Mode léger"}", true)
+        CheckRow(Icons.Default.Code, "Processeur", Build.SUPPORTED_ABIS.firstOrNull() ?: "Inconnu", arm64)
+        CheckRow(Icons.Default.Storage, "Version Android", "Android ${Build.VERSION.RELEASE}", true)
         Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = RoundedCornerShape(16.dp)) {
             Text(
-                "Only open projects you trust. The local Linux environment is a compatibility layer, not a hardened security sandbox.",
+                "N’ouvrez que des projets fiables. L’environnement Linux local est une couche de compatibilité, pas un bac à sable de sécurité renforcé.",
                 modifier = Modifier.padding(16.dp),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
         Button(onClick = onContinue, enabled = compatible, modifier = Modifier.fillMaxWidth().height(52.dp)) {
-            Text(if (compatible) "Continue" else "This device is not supported")
+            Text(if (compatible) "Continuer" else "Cet appareil n’est pas compatible")
         }
     }
 }
@@ -2475,10 +2475,10 @@ private fun ProviderChoiceStep(
     Column(Modifier.fillMaxHeight()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
-                "STEP 2 OF 3",
+                "ÉTAPE 2 SUR 3",
                 fontSize = 10.sp,
                 fontWeight = FontWeight.Bold,
-                color = PocketOrange,
+                color = PocketMint,
                 letterSpacing = 1.1.sp,
             )
             Spacer(Modifier.weight(1f))
@@ -2492,12 +2492,12 @@ private fun ProviderChoiceStep(
                 ) {
                     Icon(Icons.Default.Shield, null, tint = PocketGreen, modifier = Modifier.size(12.dp))
                     Spacer(Modifier.width(5.dp))
-                    Text("Secure setup", color = PocketGreen, fontSize = 10.sp, fontWeight = FontWeight.SemiBold)
+                    Text("Configuration sécurisée", color = PocketGreen, fontSize = 10.sp, fontWeight = FontWeight.SemiBold)
                 }
             }
         }
         Spacer(Modifier.height(10.dp))
-        Text("Connect your AI", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+        Text("Connectez votre IA", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
         Spacer(Modifier.height(4.dp))
         Text(
             "Choisissez comment Mobile Lewys doit accéder à votre modèle de développement.",
@@ -2536,7 +2536,7 @@ private fun ProviderChoiceStep(
             Icon(Icons.Default.Key, null, tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(14.dp))
             Spacer(Modifier.width(7.dp))
             Text(
-                "API keys are encrypted in Android secure storage.",
+                "Les clés API sont chiffrées et stockées dans l’espace sécurisé d’Android.",
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 11.sp,
             )
@@ -2550,7 +2550,7 @@ private fun ProviderChoiceStep(
                 contentColor = MaterialTheme.colorScheme.onPrimary,
             ),
         ) {
-            Text("Continue", fontWeight = FontWeight.Bold)
+            Text("Continuer", fontWeight = FontWeight.Bold)
             Spacer(Modifier.width(8.dp))
             Icon(Icons.AutoMirrored.Filled.ArrowForward, null, modifier = Modifier.size(18.dp))
         }
@@ -2558,7 +2558,7 @@ private fun ProviderChoiceStep(
             onClick = onChangeAgent,
             modifier = Modifier.align(Alignment.CenterHorizontally).padding(bottom = 6.dp),
         ) {
-            Text("Use another coding agent", fontSize = 12.sp)
+            Text("Choisir un autre agent de code", fontSize = 12.sp)
         }
     }
 }
@@ -2577,7 +2577,7 @@ private fun ProviderChoiceRow(
         ProviderKind.KIMI -> Color(0xFF8B7CF6)
         ProviderKind.OPENCODE_ZEN -> Color(0xFF22C55E)
         ProviderKind.NVIDIA_NIM -> Color(0xFF76B900)
-        ProviderKind.CUSTOM -> PocketOrange
+        ProviderKind.CUSTOM -> PocketMint
     }
     val mark = when (provider) {
         ProviderKind.CLAUDE -> "C"
@@ -2623,7 +2623,7 @@ private fun ProviderChoiceRow(
                         shape = RoundedCornerShape(5.dp),
                     ) {
                         Text(
-                            "Beta",
+                            "Bêta",
                             modifier = Modifier.padding(horizontal = 5.dp, vertical = 1.dp),
                             color = MaterialTheme.colorScheme.primary,
                             fontSize = 8.sp,
@@ -2714,7 +2714,7 @@ private fun ProviderCredentialsStep(
                 is ModelDiscoveryResult.Success -> {
                     models = result.models
                     statusOk = true
-                    status = "Found ${result.models.size} available model${if (result.models.size == 1) "" else "s"}."
+                    status = if (result.models.size == 1) "1 modèle disponible." else "${result.models.size} modèles disponibles."
                     if (model.isBlank() && result.models.isNotEmpty()) onModel(result.models.first().id)
                     if (openWhenReady && result.models.isNotEmpty()) showModels = true
                 }
@@ -2739,7 +2739,7 @@ private fun ProviderCredentialsStep(
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) {
-                        Text("Available models", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+                        Text("Modèles disponibles", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
                         Text(
                             "${filteredModels.size} of ${models.size} models",
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -2751,7 +2751,7 @@ private fun ProviderCredentialsStep(
                         enabled = !isDiscovering,
                     ) {
                         if (isDiscovering) CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
-                        else Icon(Icons.Default.Refresh, "Refresh models")
+                        else Icon(Icons.Default.Refresh, "Actualiser les modèles")
                     }
                 }
                 Spacer(Modifier.height(14.dp))
@@ -2759,14 +2759,14 @@ private fun ProviderCredentialsStep(
                     value = modelSearch,
                     onValueChange = { modelSearch = it },
                     leadingIcon = { Icon(Icons.Default.Search, null) },
-                    placeholder = { Text("Search model name or ID") },
+                    placeholder = { Text("Rechercher un nom ou un identifiant de modèle") },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                 )
                 Spacer(Modifier.height(12.dp))
                 if (filteredModels.isEmpty()) {
                     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        Text("No matching models", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Text("Aucun modèle correspondant", color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 } else {
                     LazyColumn(
@@ -2798,12 +2798,12 @@ private fun ProviderCredentialsStep(
                                 Box(
                                     Modifier.size(20.dp).border(
                                         if (model == option.id) 2.dp else 1.dp,
-                                        if (model == option.id) PocketOrange else MaterialTheme.colorScheme.outline,
+                                        if (model == option.id) PocketMint else MaterialTheme.colorScheme.outline,
                                         CircleShape,
                                     ),
                                     contentAlignment = Alignment.Center,
                                 ) {
-                                    if (model == option.id) Box(Modifier.size(9.dp).background(PocketOrange, CircleShape))
+                                    if (model == option.id) Box(Modifier.size(9.dp).background(PocketMint, CircleShape))
                                 }
                             }
                             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.55f))
@@ -2821,7 +2821,7 @@ private fun ProviderCredentialsStep(
     ) {
         item {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("ÉTAPE 3 SUR 3", color = PocketOrange, fontSize = 12.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                Text("ÉTAPE 3 SUR 3", color = PocketMint, fontSize = 12.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
                 Spacer(Modifier.weight(1f))
                 Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = CircleShape) {
                     Row(Modifier.padding(horizontal = 12.dp, vertical = 7.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -2836,9 +2836,9 @@ private fun ProviderCredentialsStep(
             Spacer(Modifier.height(5.dp))
             Text(
                 when {
-                    agentKind == AgentKind.DEEPSEEK_HARNESS -> "DeepSeek Harness will connect through this API endpoint."
+                    agentKind == AgentKind.DEEPSEEK_HARNESS -> "DeepSeek Harness se connectera via ce point d’accès API."
                     provider.protocol.name.startsWith("OPENAI") -> "Mobile Lewys traduira les requêtes Claude Code pour ce fournisseur."
-                    else -> "Claude Code will connect through this API endpoint."
+                    else -> "Claude Code se connectera via ce point d’accès API."
                 },
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -2853,9 +2853,9 @@ private fun ProviderCredentialsStep(
                     OutlinedTextField(
                         baseUrl,
                         { onBaseUrl(it); status = null; statusDetails = null; models = emptyList() },
-                        label = { Text("Base URL") },
+                        label = { Text("URL de base") },
                         supportingText = {
-                            if (provider.fixedBaseUrl) Text("Fixed by ${provider.title}")
+                            if (provider.fixedBaseUrl) Text("Définie par ${provider.title}")
                         },
                         readOnly = provider.fixedBaseUrl,
                         enabled = !provider.fixedBaseUrl,
@@ -2868,10 +2868,10 @@ private fun ProviderCredentialsStep(
                     OutlinedTextField(
                         apiKey,
                         { onApiKey(it); status = null; statusDetails = null },
-                        label = { Text("API key") },
-                        placeholder = { Text(if (hasStoredSecret) "Saved securely — leave blank to keep it" else "Enter your API key") },
+                        label = { Text("Clé API") },
+                        placeholder = { Text(if (hasStoredSecret) "Enregistrée en sécurité : laissez vide pour la conserver" else "Saisissez votre clé API") },
                         supportingText = {
-                            if (hasStoredSecret && apiKey.isBlank()) Text("A saved key is ready to use")
+                            if (hasStoredSecret && apiKey.isBlank()) Text("Une clé enregistrée est prête à être utilisée")
                         },
                         singleLine = true,
                         visualTransformation = PasswordVisualTransformation(),
@@ -2881,8 +2881,8 @@ private fun ProviderCredentialsStep(
                     OutlinedTextField(
                         model,
                         { onModel(it); status = null; statusDetails = null },
-                        label = { Text("Model name") },
-                        supportingText = { Text("Select an available model or enter an exact model ID.") },
+                        label = { Text("Nom du modèle") },
+                        supportingText = { Text("Sélectionnez un modèle disponible ou saisissez son identifiant exact.") },
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth(),
                     )
@@ -2903,7 +2903,7 @@ private fun ProviderCredentialsStep(
                 }
                 Icon(if (models.isEmpty()) Icons.Default.Search else Icons.Default.KeyboardArrowDown, null, Modifier.size(19.dp))
                 Spacer(Modifier.width(8.dp))
-                Text(if (models.isEmpty()) "Find available models" else "Available models (${models.size})")
+                Text(if (models.isEmpty()) "Rechercher les modèles disponibles" else "Modèles disponibles (${models.size})")
             }
         }
         if (status != null) {
@@ -2929,7 +2929,7 @@ private fun ProviderCredentialsStep(
                     onClick = {
                         scope.launch {
                             isValidating = true
-                            status = "Checking API key, model, and Claude Code settings…"
+                            status = "Vérification de la clé API, du modèle et de la configuration de Claude Code…"
                             statusDetails = null
                             statusOk = true
                             when (val result = onValidate(models)) {
@@ -2954,7 +2954,7 @@ private fun ProviderCredentialsStep(
                         CircularProgressIndicator(Modifier.size(17.dp), strokeWidth = 2.dp)
                         Spacer(Modifier.width(7.dp))
                     }
-                    Text(if (isValidating) "Checking" else "Continue")
+                    Text(if (isValidating) "Vérification…" else "Continuer")
             }
         }
         item {
@@ -2962,7 +2962,7 @@ private fun ProviderCredentialsStep(
                 onClick = onChangeAgent,
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text("Use another coding agent", fontSize = 12.sp)
+                Text("Choisir un autre agent de code", fontSize = 12.sp)
             }
         }
     }
@@ -2986,13 +2986,13 @@ private fun ClaudeSubscriptionCredentialsStep(
     ) {
         item {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("STEP 3 OF 3", color = PocketOrange, fontSize = 12.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                Text("ÉTAPE 3 SUR 3", color = PocketMint, fontSize = 12.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
                 Spacer(Modifier.weight(1f))
                 Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = CircleShape) {
                     Row(Modifier.padding(horizontal = 12.dp, vertical = 7.dp), verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.Default.Key, null, Modifier.size(15.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
                         Spacer(Modifier.width(6.dp))
-                        Text("Encrypted locally", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Text("Chiffré localement", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
             }
@@ -3017,7 +3017,7 @@ private fun ClaudeSubscriptionCredentialsStep(
                             "claude setup-token",
                             modifier = Modifier.fillMaxWidth().padding(12.dp),
                             fontFamily = FontFamily.Monospace,
-                            color = PocketOrange,
+                            color = PocketMint,
                         )
                     }
                     Text("2. Connectez-vous à Claude et collez le jeton généré ici.", fontSize = 13.sp)
@@ -3229,7 +3229,7 @@ private fun ProjectsScreen(
                                     border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
                                 ) {
                                     Row(Modifier.padding(horizontal = 12.dp, vertical = 11.dp), verticalAlignment = Alignment.CenterVertically) {
-                                        Icon(Icons.Default.Code, null, tint = PocketOrange, modifier = Modifier.size(19.dp))
+                                        Icon(Icons.Default.Code, null, tint = PocketMint, modifier = Modifier.size(19.dp))
                                         Spacer(Modifier.width(10.dp))
                                         Column(Modifier.weight(1f)) {
                                             Text(
@@ -3259,19 +3259,19 @@ private fun ProjectsScreen(
                     Surface(
                         modifier = Modifier.fillMaxWidth().clickable { showUpdateDialog = true },
                         shape = RoundedCornerShape(20.dp),
-                        color = PocketOrange.copy(alpha = 0.11f),
-                        border = BorderStroke(1.dp, PocketOrange.copy(alpha = 0.45f)),
+                        color = PocketMint.copy(alpha = 0.11f),
+                        border = BorderStroke(1.dp, PocketMint.copy(alpha = 0.45f)),
                     ) {
                         Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
-                            Surface(shape = CircleShape, color = PocketOrange.copy(alpha = 0.18f), modifier = Modifier.size(46.dp)) {
-                                Box(contentAlignment = Alignment.Center) { Icon(Icons.Default.Download, null, tint = PocketOrange) }
+                            Surface(shape = CircleShape, color = PocketMint.copy(alpha = 0.18f), modifier = Modifier.size(46.dp)) {
+                                Box(contentAlignment = Alignment.Center) { Icon(Icons.Default.Download, null, tint = PocketMint) }
                             }
                             Spacer(Modifier.width(12.dp))
                             Column(Modifier.weight(1f)) {
                                 Text("Mobile Lewys ${update.versionName}", fontWeight = FontWeight.Bold)
                                 Text("Une mise à jour est disponible", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
-                            Text("Mettre à jour", color = PocketOrange, fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                            Text("Mettre à jour", color = PocketMint, fontWeight = FontWeight.Bold, fontSize = 13.sp)
                         }
                     }
                 }
@@ -3295,14 +3295,14 @@ private fun ProjectsScreen(
                         ) {
                             Surface(
                                 shape = CircleShape,
-                                color = PocketOrange.copy(alpha = 0.15f),
+                                color = PocketMint.copy(alpha = 0.15f),
                                 modifier = Modifier.size(56.dp),
                             ) {
                                 Box(contentAlignment = Alignment.Center) {
                                     Icon(
                                         Icons.Default.Folder,
                                         contentDescription = null,
-                                        tint = PocketOrange,
+                                        tint = PocketMint,
                                         modifier = Modifier.size(28.dp),
                                     )
                                 }
@@ -3359,7 +3359,7 @@ private fun ProjectsScreen(
     )
     if (showGitDialog) AlertDialog(
         onDismissRequest = { if (!state.gitCloneRunning) showGitDialog = false },
-        icon = { Icon(Icons.Default.Code, null, tint = PocketOrange) },
+        icon = { Icon(Icons.Default.Code, null, tint = PocketMint) },
         title = { Text("Cloner un dépôt Git") },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -3389,7 +3389,7 @@ private fun ProjectsScreen(
         }
         AlertDialog(
             onDismissRequest = { if (!state.gitCloneRunning) showGitHubDialog = false },
-            icon = { Icon(Icons.Default.Code, null, tint = PocketOrange) },
+            icon = { Icon(Icons.Default.Code, null, tint = PocketMint) },
             title = { Text(state.githubLogin?.let { "GitHub · @$it" } ?: "Connect GitHub") },
             text = {
                 when (state.githubAuthStatus) {
@@ -3460,7 +3460,7 @@ private fun ProjectsScreen(
                                     color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.55f),
                                 ) {
                                     Row(Modifier.padding(11.dp), verticalAlignment = Alignment.CenterVertically) {
-                                        Icon(if (repository.private) Icons.Default.Key else Icons.Default.Code, null, modifier = Modifier.size(17.dp), tint = PocketOrange)
+                                        Icon(if (repository.private) Icons.Default.Key else Icons.Default.Code, null, modifier = Modifier.size(17.dp), tint = PocketMint)
                                         Spacer(Modifier.width(9.dp))
                                         Column(Modifier.weight(1f)) {
                                             Text(repository.fullName, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, maxLines = 1, overflow = TextOverflow.Ellipsis)
@@ -3497,7 +3497,7 @@ private fun ProjectsScreen(
         val progress = if (total > 0) (downloaded.toFloat() / total).coerceIn(0f, 1f) else 0f
         AlertDialog(
             onDismissRequest = { if (!installing) showUpdateDialog = false },
-            icon = { Icon(Icons.Default.Download, null, tint = PocketOrange, modifier = Modifier.size(34.dp)) },
+            icon = { Icon(Icons.Default.Download, null, tint = PocketMint, modifier = Modifier.size(34.dp)) },
             title = { Text("Update to ${update.versionName}", fontWeight = FontWeight.Bold) },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -3574,7 +3574,7 @@ private fun ApiStatusChip(state: AppUiState, onSettings: () -> Unit, onPing: () 
     val dotColor = when (state.apiPingStatus) {
         ApiPingStatus.OK -> PocketGreen
         ApiPingStatus.FAILED -> MaterialTheme.colorScheme.error
-        ApiPingStatus.PINGING -> PocketOrange
+        ApiPingStatus.PINGING -> PocketMint
         ApiPingStatus.IDLE -> MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f)
     }
     val providerLabel = when {
@@ -3619,7 +3619,7 @@ private fun ApiStatusChip(state: AppUiState, onSettings: () -> Unit, onPing: () 
                 modifier = Modifier.size(28.dp),
             ) {
                 if (state.apiPingStatus == ApiPingStatus.PINGING) {
-                    CircularProgressIndicator(Modifier.size(14.dp), strokeWidth = 2.dp, color = PocketOrange)
+                    CircularProgressIndicator(Modifier.size(14.dp), strokeWidth = 2.dp, color = PocketMint)
                 } else {
                     Icon(
                         Icons.Default.Refresh,
@@ -3651,7 +3651,7 @@ private fun ProjectCard(
     Card(Modifier.fillMaxWidth().clickable(onClick = onOpen), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)) {
         Row(Modifier.padding(start = 16.dp, top = 12.dp, bottom = 12.dp, end = 4.dp), verticalAlignment = Alignment.CenterVertically) {
             Surface(shape = RoundedCornerShape(14.dp), color = MaterialTheme.colorScheme.surfaceVariant) {
-                Icon(Icons.Default.Folder, null, Modifier.padding(13.dp), tint = PocketOrange)
+                Icon(Icons.Default.Folder, null, Modifier.padding(13.dp), tint = PocketMint)
             }
             Spacer(Modifier.width(13.dp))
             Column(Modifier.weight(1f)) {
@@ -3676,7 +3676,7 @@ private fun ProjectCard(
                     }
                 }
                 Text(
-                    if (project.kind == ProjectKind.QUICK_PROJECT) "Quick project" else project.description,
+                    if (project.kind == ProjectKind.QUICK_PROJECT) "Projet rapide" else project.description,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 12.sp,
                     maxLines = 1,
@@ -4202,7 +4202,7 @@ private fun FileViewerScreen(
                             Icon(
                                 if (copied) Icons.Default.Check else Icons.Default.ContentCopy,
                                 "Copy file contents",
-                                tint = if (copied) PocketOrange else MaterialTheme.colorScheme.onSurface,
+                                tint = if (copied) PocketMint else MaterialTheme.colorScheme.onSurface,
                             )
                         }
                     }
@@ -4215,7 +4215,7 @@ private fun FileViewerScreen(
             when {
                 loading -> {
                     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        CircularProgressIndicator(color = PocketOrange)
+                        CircularProgressIndicator(color = PocketMint)
                     }
                 }
                 content == null -> {
@@ -4391,7 +4391,7 @@ private fun FilesTab(
                 Icon(
                     if (entry.isDirectory) Icons.Default.Folder else Icons.Default.Description,
                     null,
-                    tint = if (entry.isDirectory) PocketOrange else MaterialTheme.colorScheme.onSurfaceVariant,
+                    tint = if (entry.isDirectory) PocketMint else MaterialTheme.colorScheme.onSurfaceVariant,
                 )
                 Spacer(Modifier.width(11.dp))
                 Text(
@@ -5090,7 +5090,7 @@ private fun AttachmentChip(
         border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
     ) {
         Row(Modifier.padding(start = 9.dp, end = if (onRemove == null) 10.dp else 3.dp, top = 7.dp, bottom = 7.dp), verticalAlignment = Alignment.CenterVertically) {
-            Icon(icon, null, Modifier.size(17.dp), tint = PocketOrange)
+            Icon(icon, null, Modifier.size(17.dp), tint = PocketMint)
             Spacer(Modifier.width(7.dp))
             Column(Modifier.widthIn(max = 180.dp)) {
                 Text(attachment.displayName, fontSize = 12.sp, fontWeight = FontWeight.Medium, maxLines = 1, overflow = TextOverflow.Ellipsis)
@@ -5110,7 +5110,7 @@ private fun ApprovalCard(request: ToolRequest, onApproval: (Boolean) -> Unit) {
     Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(Icons.Default.Warning, null, tint = PocketOrange)
+                Icon(Icons.Default.Warning, null, tint = PocketMint)
                 Spacer(Modifier.width(8.dp)); Text("Review this action", fontWeight = FontWeight.Bold)
             }
             Text(request.explanation)
@@ -5148,7 +5148,7 @@ private fun FilesTab(files: List<WorkspaceEntry>, loading: Boolean, onRefresh: (
                 Icon(
                     if (entry.isDirectory) Icons.Default.Folder else Icons.Default.Description,
                     null,
-                    tint = if (entry.isDirectory) PocketOrange else MaterialTheme.colorScheme.onSurfaceVariant,
+                    tint = if (entry.isDirectory) PocketMint else MaterialTheme.colorScheme.onSurfaceVariant,
                 )
                 Spacer(Modifier.width(11.dp))
                 Text(entry.name, Modifier.weight(1f))
