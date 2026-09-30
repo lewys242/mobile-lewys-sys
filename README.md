@@ -373,7 +373,7 @@ Mobile Lewys allows downloading optional developer packs on demand to conserve s
 <br />
 
 ```text
-Mobile-Harness/
+mobile-lewys-sys/
 ├── app/src/main/
 │   ├── java/com/jarves/mh/
 │   │   ├── data/       # Preferences, Keystore AES encryption, SQLite persistence

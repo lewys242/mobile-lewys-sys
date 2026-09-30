@@ -173,7 +173,7 @@ tasks.matching { it.name.contains("Offline") && it.name.contains("lint", ignoreC
 
 tasks.register("playReadinessCheck") {
     group = "verification"
-    description = "Checks configuration required before uploading a Mobile Harness Play bundle."
+    description = "Checks configuration required before uploading a Mobile Lewys Play bundle."
     doLast {
         check(playBuild) { "Run with -PplayBuild=true." }
         check(privacyPolicyUrl.startsWith("https://")) {

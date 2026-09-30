@@ -1,0 +1,31 @@
+Categories:
+  - Development
+  - System
+License: MIT
+AuthorName: lewys242
+SourceCode: https://github.com/lewys242/mobile-lewys-sys
+IssueTracker: https://github.com/lewys242/mobile-lewys-sys/issues
+Changelog: https://github.com/lewys242/mobile-lewys-sys/releases
+
+AutoName: Mobile Lewys
+
+RepoType: git
+Repo: https://github.com/lewys242/mobile-lewys-sys.git
+
+AntiFeatures:
+  - NonFreeNet
+
+Builds:
+  - versionName: 1.0.4
+    versionCode: 5
+    commit: 620a2b5ad4296d3ae823036459506dffbaf7c5e7
+    subdir: app
+    ndk: r26b
+    submodules: true
+    gradle:
+      - yes
+
+AutoUpdateMode: Version v%v
+UpdateCheckMode: Tags
+CurrentVersion: 1.0.4
+CurrentVersionCode: 5
