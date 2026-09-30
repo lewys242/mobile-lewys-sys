@@ -4,28 +4,34 @@
 
   # Mobile Lewys
 
-  ### *The complete autonomous AI development workspace for Android.*
+  ### *L’espace complet de développement IA autonome sur Android.*
 
-  **Chat with coding agents, edit projects, execute real Linux commands, and preview live web servers — all directly on your phone.**
+  **Discutez avec des agents de code, modifiez vos projets, exécutez de vraies commandes Linux et prévisualisez vos sites web, directement depuis votre téléphone.**
 
   <br />
 
-  [![Release](https://img.shields.io/badge/Release-GitHub-F28C52?style=flat-square&logo=github&logoColor=white)](https://github.com/lewys242/mobile-lewys-sys/releases)
+  [![Version](https://img.shields.io/badge/Version-GitHub-23845B?style=flat-square&logo=github&logoColor=white)](https://github.com/lewys242/mobile-lewys-sys/releases)
   [![Android 9+](https://img.shields.io/badge/Android-9%2B-3DDC84?style=flat-square&logo=android&logoColor=white)](#system-requirements)
-  [![ARM64](https://img.shields.io/badge/CPU-ARM64-5B8DEF?style=flat-square)](#system-requirements)
-  [![MIT License](https://img.shields.io/badge/License-MIT-8B7CF6?style=flat-square&logo=opensourceinitiative&logoColor=white)](LICENSE)
-  [![Watch demo](https://img.shields.io/badge/Watch-Demo-FF0000?style=flat-square&logo=youtube&logoColor=white)](https://www.youtube.com/techjarves)
+  [![ARM64](https://img.shields.io/badge/Processeur-ARM64-23845B?style=flat-square)](#system-requirements)
+  [![MIT License](https://img.shields.io/badge/Licence-MIT-124B3D?style=flat-square&logo=opensourceinitiative&logoColor=white)](LICENSE)
+  [![Démo](https://img.shields.io/badge/Voir-la_d%C3%A9mo-FF0000?style=flat-square&logo=youtube&logoColor=white)](https://www.youtube.com/techjarves)
 
   <br />
 
-  [**Download Online APK**](https://github.com/lewys242/mobile-lewys-sys/releases/latest/download/mobile-lewys-online.apk) &nbsp;•&nbsp;
-  [**Download Offline APK**](https://github.com/lewys242/mobile-lewys-sys/releases/latest/download/mobile-lewys-offline.apk) &nbsp;•&nbsp;
-  [**Watch Walkthrough (3 min)**](https://youtu.be/QzAau52Z7yQ) &nbsp;•&nbsp;
-  [**Quickstart Guide**](#quickstart) &nbsp;•&nbsp;
+  [**Télécharger l’APK en ligne**](https://github.com/lewys242/mobile-lewys-sys/releases/latest/download/mobile-lewys-online.apk) &nbsp;•&nbsp;
+  [**Télécharger l’APK hors ligne**](https://github.com/lewys242/mobile-lewys-sys/releases/latest/download/mobile-lewys-offline.apk) &nbsp;•&nbsp;
+  [**Voir la démonstration (3 min)**](https://youtu.be/QzAau52Z7yQ) &nbsp;•&nbsp;
+  [**Guide de démarrage**](#quickstart) &nbsp;•&nbsp;
   [**Architecture**](#architecture) &nbsp;•&nbsp;
   [**Compiler depuis les sources**](#developer-guides)
 
 </div>
+
+<br />
+
+<p align="center">
+  <img src="fastlane/graphics/feature-graphic.svg" alt="Bannière de présentation de Mobile Lewys" width="920" />
+</p>
 
 <br />
 
@@ -36,7 +42,7 @@
     <img src="https://img.youtube.com/vi/QzAau52Z7yQ/maxresdefault.jpg" alt="Mobile Lewys Walkthrough and Live Product Demo" width="920" />
   </a>
   <br />
-  <sub>Watch the product walkthrough and demo &nbsp;|&nbsp; <i>Setting up Ubuntu, connecting Claude Code, and building an app on Android</i></sub>
+  <sub>Découvrez l’application &nbsp;|&nbsp; <i>Installation d’Ubuntu, connexion à Claude Code et création d’une application sur Android</i></sub>
 </p>
 
 ---
@@ -44,34 +50,35 @@
 <br />
 
 > [!IMPORTANT]
-> **Environment Security Notice**  
-> Mobile Lewys runs on **ARM64 Android devices** using a private userspace PRoot layer. While isolated from other apps via standard Android sandbox permissions, PRoot is not a virtualization boundary or hardened security jail. Only execute projects and dependencies you own or trust.
+> **Sécurité de l’environnement**
+>
+> Mobile Lewys fonctionne sur les appareils Android **ARM64** dans un espace utilisateur PRoot privé. Android isole l’application des autres applications, mais PRoot n’est ni une frontière de virtualisation ni un bac à sable renforcé. N’exécutez que des projets et dépendances fiables.
 
 <br />
 
-## Download Mobile Lewys
+## Télécharger Mobile Lewys
 
 <div align="center">
-  <h3>Choose the edition that fits your setup</h3>
-  <p>Both editions contain Mobile Lewys. In-app updates will be available with the first signed release from this repository.</p>
+  <h3>Choisissez l’édition adaptée à votre connexion</h3>
+  <p>Les deux éditions contiennent Mobile Lewys. Les mises à jour dans l’application seront disponibles dès la première version signée de ce dépôt.</p>
 </div>
 
 <table>
   <tr>
     <td width="50%" valign="top" align="center">
-      <h3>Online Edition</h3>
-      <p><strong>87.4 MB · Recommended</strong></p>
-      <p>Start with the smaller APK. Core, Python, and Android runtime bundles are downloaded only when needed.</p>
+      <h3>Édition en ligne</h3>
+      <p><strong>87,4 Mo · Recommandée</strong></p>
+      <p>Commencez avec l’APK le plus léger. Les environnements principal, Python et Android sont téléchargés uniquement si nécessaire.</p>
       <a href="https://github.com/lewys242/mobile-lewys-sys/releases/latest/download/mobile-lewys-online.apk">
-        <img src="https://img.shields.io/badge/Download-Online_APK-F28C52?style=for-the-badge&logo=android&logoColor=white" alt="Download Online APK" />
+        <img src="https://img.shields.io/badge/T%C3%A9l%C3%A9charger-APK_en_ligne-23845B?style=for-the-badge&logo=android&logoColor=white" alt="Télécharger l’APK en ligne" />
       </a>
     </td>
     <td width="50%" valign="top" align="center">
-      <h3>Offline Edition</h3>
-      <p><strong>887.7 MB · Everything included</strong></p>
-      <p>Includes the Core, Python, and Android runtime bundles for setup with limited or unavailable internet.</p>
+      <h3>Édition hors ligne</h3>
+      <p><strong>887,7 Mo · Tout inclus</strong></p>
+      <p>Inclut les environnements principal, Python et Android pour une installation avec une connexion limitée ou sans Internet.</p>
       <a href="https://github.com/lewys242/mobile-lewys-sys/releases/latest/download/mobile-lewys-offline.apk">
-        <img src="https://img.shields.io/badge/Download-Offline_APK-5B8DEF?style=for-the-badge&logo=android&logoColor=white" alt="Download Offline APK" />
+        <img src="https://img.shields.io/badge/T%C3%A9l%C3%A9charger-APK_hors_ligne-124B3D?style=for-the-badge&logo=android&logoColor=white" alt="Télécharger l’APK hors ligne" />
       </a>
     </td>
   </tr>
@@ -79,7 +86,7 @@
 
 <p align="center">
   <strong>ARM64 Android 9+</strong><br />
-  <sub>Direct APK installation · No root required · No USB or wireless ADB pairing</sub>
+  <sub>Installation directe de l’APK · Aucun accès root · Aucun jumelage ADB USB ou sans fil</sub>
 </p>
 
 <br />
@@ -133,78 +140,59 @@ Mobile Lewys unites modern **Jetpack Compose UI** with a self-contained **Ubuntu
 
 <br />
 
-## Workspace Interface
+## Espaces de travail
 
-<table>
-  <tr>
-    <th width="33%" align="center">Projects</th>
-    <th width="33%" align="center">Terminal</th>
-    <th width="33%" align="center">Settings</th>
-  </tr>
-  <tr>
-    <td align="center" valign="top">
-      <img src="assets/readme/projects.png" alt="Projects workspace overview" width="100%" />
-    </td>
-    <td align="center" valign="top">
-      <img src="assets/readme/terminal.png" alt="Linux terminal execution" width="100%" />
-    </td>
-    <td align="center" valign="top">
-      <img src="assets/readme/settings.png" alt="Runtime and provider configuration" width="100%" />
-    </td>
-  </tr>
-  <tr>
-    <td align="center"><sub>Create, organize, and resume isolated workspace sessions.</sub></td>
-    <td align="center"><sub>Execute real Linux commands and scripts with instant output.</sub></td>
-    <td align="center"><sub>Manage AI providers, installed toolchains, themes, and runtime health.</sub></td>
-  </tr>
-</table>
+| Projets | Terminal | Réglages |
+| :--- | :--- | :--- |
+| Organisez vos projets et reprenez vos sessions de travail. | Exécutez des commandes et scripts Linux directement sur le téléphone. | Gérez les fournisseurs d’IA, les outils installés, les thèmes et l’état de l’environnement. |
 
 <br />
 
-## Quickstart
+<a id="quickstart"></a>
+## Guide de démarrage
 
-Get up and running in 3 guided steps:
+Lancez-vous en trois étapes guidées :
 
-### 1. Download & Install
-Download the latest signed release APK from [Mobile Lewys GitHub Releases](https://github.com/lewys242/mobile-lewys-sys/releases/latest).
+### 1. Télécharger et installer
+Téléchargez le dernier APK signé depuis les [versions de Mobile Lewys sur GitHub](https://github.com/lewys242/mobile-lewys-sys/releases/latest).
 
 ```text
-Target Architecture : ARM64 (arm64-v8a)
-Package Version     : v1.0.4
-Minimum OS Level    : Android 9.0 (API 28)
+Architecture cible : ARM64 (arm64-v8a)
+Version            : v1.0.4
+Version minimale   : Android 9.0 (API 28)
 ```
 
-### 2. Guided Bootstrap (~10 Minutes)
-Launch the application and follow the interactive setup wizard:
+### 2. Configuration guidée (environ 10 minutes)
+Ouvrez l’application et suivez l’assistant de configuration :
 
 <table>
   <tr>
-    <th width="33%" align="center">1 · System Readiness</th>
-    <th width="33%" align="center">2 · Toolchains</th>
-    <th width="33%" align="center">3 · AI Provider</th>
+    <th width="33%" align="center">1 · Préparation de l’appareil</th>
+    <th width="33%" align="center">2 · Outils</th>
+    <th width="33%" align="center">3 · Fournisseur d’IA</th>
   </tr>
   <tr>
     <td align="center" valign="top">
-      <img src="assets/readme/setup-notifications.png" alt="System compatibility check" width="100%" />
+      <img src="assets/readme/setup-notifications.png" alt="Vérification de la compatibilité de l’appareil" width="100%" />
     </td>
     <td align="center" valign="top">
-      <img src="assets/readme/setup-toolchains.png" alt="Toolchain selection" width="100%" />
+      <img src="assets/readme/setup-toolchains.png" alt="Choix des outils de développement" width="100%" />
     </td>
     <td align="center" valign="top">
-      <img src="assets/readme/setup-provider.png" alt="Provider connection" width="100%" />
+      <img src="assets/readme/setup-provider.png" alt="Choix du fournisseur d’IA" width="100%" />
     </td>
   </tr>
   <tr>
-    <td align="center"><sub>Verifies device storage, CPU architecture, and background service permissions.</sub></td>
-    <td align="center"><sub>Select core Ubuntu runtime and optional development stacks.</sub></td>
-    <td align="center"><sub>Securely store your API keys in Android Keystore.</sub></td>
+    <td align="center"><sub>Vérifiez le stockage, l’architecture du processeur et les autorisations en arrière-plan.</sub></td>
+    <td align="center"><sub>Choisissez l’environnement Ubuntu et les outils de développement facultatifs.</sub></td>
+    <td align="center"><sub>Configurez votre fournisseur et protégez vos clés API avec Android Keystore.</sub></td>
   </tr>
 </table>
 
-### 3. Create & Build
-1. Tap **New Project** or launch an instant **Quick Project**.
-2. Open the **AI Workspace** and describe what you want to build.
-3. Watch the agent inspect files, draft code, run builds, and launch local web previews.
+### 3. Créer et développer
+1. Créez un **projet** ou démarrez un **projet rapide**.
+2. Ouvrez l’**espace de travail IA** et décrivez ce que vous souhaitez réaliser.
+3. L’agent analyse les fichiers, propose du code, lance les compilations et prévisualise les sites locaux.
 
 <br />
 
@@ -447,7 +435,5 @@ Mobile Lewys is based on [Mobile Harness](https://github.com/techjarves/Mobile-H
 ---
 
 <div align="center">
-  <sub>Crafted for developers who want a serious, uncompromised development environment wherever they go.</sub>
-  <br />
-  <sub>Mobile Lewys is a community fork of Mobile Harness. See Credits and LICENSE for attribution.</sub>
+  <sub>Conçu pour les développeurs qui veulent un environnement de développement complet, partout avec eux.</sub>
 </div>
